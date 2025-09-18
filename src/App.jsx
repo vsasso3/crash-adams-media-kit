@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, PieChart, Pie, Cell, Tooltip } from "recharts";
+import { FaYoutube, FaTiktok, FaInstagram, FaSnapchatGhost, FaFacebook } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 // =====================
 // Dashboard Shell
@@ -63,7 +65,14 @@ const makeBg = (solid, grad) => (grad && grad.enabled && grad.from && grad.to)
 // Theme / Constants
 // =====================
 const PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "snapchat"];
-const PLATFORM_LABEL = { youtube: "YouTube", tiktok: "TikTok", instagram: "Instagram", snapchat: "Snapchat" };
+const PLATFORM_LABEL = { youtube: "YouTube", tiktok: "TikTok", facebook: "Facebook", instagram: "Instagram", snapchat: "Snapchat" };
+const PLATFORM_ICON = {
+  youtube: <FaYoutube className="text-red-600" />,
+  tiktok: <FaTiktok className="text-black" />,
+  facebook: <FaFacebook className="text-blue-600" />,
+  instagram: <FaInstagram className="text-pink-500" />,
+  snapchat: <FaSnapchatGhost className="text-yellow-400" />,
+};
 const STORAGE_KEY = "creator_analytics_v1";
 
 // =====================
@@ -141,37 +150,37 @@ const DEFAULT_CONFIG = {
     { emoji: "🤝", bold: "Notable Content Collabs Include:", text: " Victoria Justice, JVKE, Emilio Piano, Huddy, America’s Got Talent" }
   ],
   brandCollabs: {
-    title: "BRAND COLLABS:",
+    title: "NOTABLE BRAND COLLABS:",
     logos: [
-      { name: "Meta", img: "https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" },
+      { name: "Meta", img: "https://cdn.simpleicons.org/meta" },
       { name: "YouTube", img: "https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" },
       { name: "Google", img: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
-      { name: "Old Spice", img: "https://upload.wikimedia.org/wikipedia/en/0/01/Old_Spice_logo.png" },
-      { name: "Qatar Airways", img: "https://upload.wikimedia.org/wikipedia/en/5/5d/Qatar_Airways_Logo.png" },
-      { name: "Xbox", img: "https://upload.wikimedia.org/wikipedia/commons/4/43/Xbox_one_logo.svg" },
-      { name: "Snapchat", img: "https://upload.wikimedia.org/wikipedia/en/a/ad/Snapchat_logo.svg" },
-      { name: "TikTok", img: "https://upload.wikimedia.org/wikipedia/en/0/0a/TikTok_logo.svg" },
-      { name: "KFC", img: "https://upload.wikimedia.org/wikipedia/en/9/91/KFC_logo.svg" },
-      { name: "Dubai Travel Board", img: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Dubai_Expo_2020_logo.svg" },
-      { name: "Hong Kong Tourism Board", img: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Hong_Kong_Tourism_Board_logo.svg" },
-      { name: "HSBC", img: "https://upload.wikimedia.org/wikipedia/commons/5/5a/HSBC_logo_%282018%29.svg" },
-      { name: "TD Bank", img: "https://upload.wikimedia.org/wikipedia/commons/0/0b/TD_Bank_logo.svg" },
-      { name: "Nissan", img: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Nissan_2020_logo.svg" },
-      { name: "W Hotels", img: "https://upload.wikimedia.org/wikipedia/commons/e/e0/W_Hotels_logo.svg" },
-      { name: "The Standard Hotels", img: "https://upload.wikimedia.org/wikipedia/commons/f/f0/The_Standard_Hotels_logo.svg" },
-      { name: "Doc Martens", img: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Dr._Martens_logo.png" },
-      { name: "Miller Genuine Draft", img: "https://upload.wikimedia.org/wikipedia/en/1/15/Miller_Genuine_Draft_logo.png" },
-      { name: "Harry Rosen", img: "https://upload.wikimedia.org/wikipedia/en/4/45/Harry_Rosen_logo.png" },
-      { name: "RW & Co", img: "https://upload.wikimedia.org/wikipedia/commons/4/4e/RW%26CO_logo.svg" },
+      { name: "Old Spice", img: "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Current_Old_Spice_Logo_2016.svg/1200px-Current_Old_Spice_Logo_2016.svg.png" },
+      { name: "Qatar Airways", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Qatar_Airways_Logo.png/1200px-Qatar_Airways_Logo.png" },
+      { name: "Xbox", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/1200px-Xbox_one_logo.svg.png" },
+      { name: "Snapchat", img: "https://upload.wikimedia.org/wikipedia/it/c/c4/Snapchat_logo.svg" },
+      { name: "TikTok", img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1200px-TikTok_logo.svg.png" },
+      { name: "KFC", img: "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1200px-KFC_logo-image.svg.png" },
+      { name: "Dubai Travel Board", img: "https://i0.wp.com/www.matjoez.com/wp-content/uploads/2017/11/tourism-dubai-logo.png?fit=765%2C402&ssl=1" },
+      { name: "Hong Kong Tourism Board", img: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c0/HKTourismBoard.svg/250px-HKTourismBoard.svg.png" },
+      { name: "HSBC", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/1200px-HSBC_logo_%282018%29.svg.png" },
+      { name: "TD Bank", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/TD_Bank.svg/2560px-TD_Bank.svg.png" },
+      { name: "Nissan", img: "https://upload.wikimedia.org/wikipedia/commons/2/23/Nissan_2020_logo.svg" },
+      { name: "W Hotels", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/W_Hotels_Logo.svg/2426px-W_Hotels_Logo.svg.png" },
+      { name: "The Standard Hotels", img: "https://static1.squarespace.com/static/595ae4d7b11be1e84976a6ba/t/6599f3ef4c5478429ebd9c2b/1757500285650/" },
+      { name: "Doc Martens", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Dr._Martens_Logo.svg/2560px-Dr._Martens_Logo.svg.png" },
+      { name: "Miller Genuine Draft", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9Y0YbpJOZBhgdJyJNwnXCMlk7JMVehGnQcw&s" },
+      { name: "Harry Rosen", img: "https://upload.wikimedia.org/wikipedia/commons/6/64/HRI_Logo.jpg" },
+      { name: "RW & Co", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMmAZKcAEEwYRSvDNHjFIjPHH_uUNmDhV54g&s" },
       { name: "San Jose Sharks", img: "https://upload.wikimedia.org/wikipedia/en/3/37/SanJoseSharksLogo.svg" },
       { name: "NHL", img: "https://upload.wikimedia.org/wikipedia/en/3/3a/05_NHL_Shield.svg" },
-      { name: "Chicago Cubs", img: "https://upload.wikimedia.org/wikipedia/commons/8/80/Chicago_Cubs_logo.svg" },
-      { name: "Rixos Hotels", img: "https://upload.wikimedia.org/wikipedia/commons/0/00/Rixos_Hotels_logo.png" },
-      { name: "Fender", img: "https://upload.wikimedia.org/wikipedia/commons/5/5e/Fender_logo.svg" }
+      { name: "Chicago Cubs", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Chicago_Cubs_logo.svg/1191px-Chicago_Cubs_logo.svg.png" },
+      { name: "Rixos Hotels", img: "https://upload.wikimedia.org/wikipedia/fr/c/c3/RIXOS-HOTELS-Logo.jpg" },
+      { name: "Fender", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Fender_guitars_logo.svg/1200px-Fender_guitars_logo.svg.png" }
     ]
   },
   press: {
-    title: "PRESS:",
+    title: "NOTABLE PRESS:",
     articles: [
       { title: "NBC", url: "https://www.nbc.com/nbc-insider/all-about-crash-adams-agt", img: "https://upload.wikimedia.org/wikipedia/commons/3/33/NBC_logo_2022.svg" },
       { title: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/shakira-olivia-rodrigo-future-metro-boomin-songs-you-need-to-know-1234992889/", img: "https://upload.wikimedia.org/wikipedia/commons/8/84/Rolling_Stone_logo.svg" },
@@ -312,7 +321,7 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
         const cfg = JSON.parse(saved);
         if (cfg?.customThumbs) setCustomThumbs(cfg.customThumbs);
       }
-    } catch {}
+    } catch { }
   }, []);
 
   useEffect(() => {
@@ -322,7 +331,7 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
       const cfg = saved ? JSON.parse(saved) : {};
       cfg.customThumbs = customThumbs;
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
-    } catch {}
+    } catch { }
   }, [customThumbs]);
 
   const c = {
@@ -534,7 +543,7 @@ function EditableAnalyticsDashboard() {
         setProfile((p) => ({ ...p, photo: cfg?.profile?.photo || p.photo }));
         if (cfg?.tagVideos) setTagVideos((prev) => ({ ...prev, ...cfg.tagVideos }));
       }
-    } catch {}
+    } catch { }
   }, []);
 
   const palette = useMemo(() => ["#A78BFA", "#7C3AED", "#6D28D9", "#4C1D95", "#C4B5FD"], []);
@@ -605,7 +614,7 @@ function EditableAnalyticsDashboard() {
                         const cfg = saved ? JSON.parse(saved) : {};
                         cfg.profile = { ...(cfg.profile || {}), photo: dataUrl };
                         if (typeof window !== "undefined") window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
-                      } catch {}
+                      } catch { }
                     };
                     reader.readAsDataURL(file);
                   }}
@@ -625,7 +634,7 @@ function EditableAnalyticsDashboard() {
                     <button
                       key={b.id}
                       onClick={() => setView(b.id)}
-                      className={`px-3 py-1 rounded-full border ${view === b.id ? "opacity-100" : "opacity-80 hover:opacity-100"}`}
+                      className={`px-3 py-1 cursor-pointer rounded-full border ${view === b.id ? "opacity-100" : "opacity-80 hover:opacity-100"}`}
                       style={{ borderColor: colors.border, background: view === b.id ? colors.secondary : "transparent", color: view === b.id ? "#0b0b0b" : colors.text }}
                     >
                       {b.label}
@@ -635,22 +644,45 @@ function EditableAnalyticsDashboard() {
 
                 {/* Followers summary row */}
                 <div className="mt-3 grid gap-1 sm:flex sm:items-end sm:justify-between">
-                  <div>
-                    <div className="text-[9px] uppercase tracking-widest" style={{ color: colors.muted }}>Total Followers</div>
-                    <div className="text-2xl font-semibold">{fmtShort(totalFollowers)}</div>
+                  <div className="flex gap-4">
+
+                    <div>
+                      <div className="text-[9px] uppercase tracking-widest" style={{ color: colors.muted }}>Total Followers</div>
+                      <div className="text-2xl font-semibold">{fmtShort(totalFollowers)}</div>
+                    </div>
+
+                    {/* Total Views */}
+                    <div>
+                      <div className="text-[9px] uppercase tracking-widest" style={{ color: colors.muted }}>Total Views</div>
+                      <div className="text-2xl font-semibold">10.0B</div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    {PLATFORM_ORDER.map((p) => (
-                      <div key={p} className="flex items-center gap-1 text-[11px]">
-                        <div className="h-3.5 w-3.5 rounded-md overflow-hidden border" style={{ borderColor: colors.border, background: colors.border }}>
-                          <div className="h-full w-full flex items-center justify-center text-[8px]" style={{ color: colors.muted }}>
-                            {PLATFORM_LABEL[p][0]}
+
+
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2 bg-customYellow text-customBrown px-4 py-1 rounded-full shadow-sm w-fit">
+                      <MdEmail className="text-[18px]" />
+                      <a
+                        href="mailto:crashadamsmusic@crashadamsmusic.com"
+                        className="font-medium hover:underline"
+                      >
+                        Contact Us : crashadamsmusic@.com
+                      </a>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      {PLATFORM_ORDER.map((p) => (
+                        <div key={p} className="flex items-center gap-2 text-[16px]">
+                          <div className="h-5 w-5 flex items-center justify-center">
+                            <span className="text-[20px]">{PLATFORM_ICON[p]}</span>
                           </div>
+                          <span>{fmtShort(normalizedPlatformData[p]?.stats?.followers)}</span>
                         </div>
-                        <span>{fmtShort(normalizedPlatformData[p]?.stats?.followers)}</span>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
+
+
                 </div>
               </div>
             </div>
