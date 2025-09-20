@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, PieChart, Pie, Cell, Tooltip } from "recharts";
 import { FaYoutube, FaTiktok, FaInstagram, FaSnapchatGhost, FaFacebook } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import crashIcon from '../public/favicon.png';
+
 
 // =====================
 // Dashboard Shell
@@ -64,11 +66,12 @@ const makeBg = (solid, grad) => (grad && grad.enabled && grad.from && grad.to)
 // =====================
 // Theme / Constants
 // =====================
-const PLATFORM_ORDER = ["youtube", "tiktok", "instagram", "snapchat"];
-const PLATFORM_LABEL = { youtube: "YouTube", tiktok: "TikTok", facebook: "Facebook", instagram: "Instagram", snapchat: "Snapchat" };
+const PLATFORM_ORDER = ["youtube", "tiktok", "crash_adams_network", "facebook", "instagram", "snapchat"];
+const PLATFORM_LABEL = { youtube: "YouTube", tiktok: "TikTok", crash_adams_network: "Crash Adams Network", facebook: "Facebook", instagram: "Instagram", snapchat: "Snapchat" };
 const PLATFORM_ICON = {
   youtube: <FaYoutube className="text-red-600" />,
   tiktok: <FaTiktok className="text-black" />,
+  crash_adams_network: <img src={crashIcon} alt="Crash Adams Network" className="w-[3rem] h-[3rem] " />,
   facebook: <FaFacebook className="text-blue-600" />,
   instagram: <FaInstagram className="text-pink-500" />,
   snapchat: <FaSnapchatGhost className="text-yellow-400" />,
@@ -91,7 +94,7 @@ const DEFAULT_CONFIG = {
     muted: "#6b7280",
     highlightIconBg: "#f0fdf4",
   },
-  profile: { displayName: "CRASH ADAMS", photo: "" },
+  profile: { displayName: "CRASH ADAMS", photo: "./ProfilePicture.jpeg" },
   avatarSize: 112,
   platform: "youtube",
   labels: {
@@ -140,7 +143,15 @@ const DEFAULT_CONFIG = {
       { title: "Rixos Hotels - Hotel Party Music Video", url: "https://www.youtube.com/watch?v=ku1zZfNbTNk", description: "Partnered with Dubai Tourism to create and film two music videos in Dubai." }
     ]
   },
-  bioText: `Crash Adams is a Toronto-based pop duo made up of childhood friends Rafaele "Crash" Massarelli and Vince "Adams" Sasso. They've built a dedicated fanbase and launched a successful music career by leveraging their ability to go insanely viral through fun and authentic content. Their music is an infectious blend of pop and pop-rock, defined by catchy hooks and feel-good, cinematic storytelling. The duo connects deeply with fans through direct engagement, inviting them into their world with innovative short-form videos across all platforms.`,
+  bioText: `Crash Adams is a Toronto-based pop duo made up of childhood friends Rafaele "Crash"
+Massarelli and Vince "Adams" Sasso. They've built a dedicated fanbase and launched a
+successful music career by leveraging their ability to go insanely viral through fun and authentic
+content.Their music is an infectious blend of pop and pop-rock, defined by catchy hooks and
+feel-good, cinematic storytelling. 
+In 2025/26, they’ll expand their viral short-form series while taking fans on the road—sharing
+concert footage, press moments, tour life, and the process of creating music and videos.
+Rafaele and Vince bring fans closer by showing both the highs of performing and the
+behind-the-scenes of their journey`,
   highlights: [
     { emoji: "🎧", bold: "450M", text: " Video/Audio Streams" },
     { emoji: "📺", bold: "12 Million Subscribers", text: " on YouTube and 5.8 Billion Views" },
@@ -182,12 +193,12 @@ const DEFAULT_CONFIG = {
   press: {
     title: "NOTABLE PRESS:",
     articles: [
-      { title: "NBC", url: "https://www.nbc.com/nbc-insider/all-about-crash-adams-agt", img: "https://upload.wikimedia.org/wikipedia/commons/3/33/NBC_logo_2022.svg" },
-      { title: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/shakira-olivia-rodrigo-future-metro-boomin-songs-you-need-to-know-1234992889/", img: "https://upload.wikimedia.org/wikipedia/commons/8/84/Rolling_Stone_logo.svg" },
-      { title: "Sirius XM Hits 1", url: "https://www.youtube.com/watch?v=U7aM5iBp5co", img: "https://upload.wikimedia.org/wikipedia/en/6/6d/Sirius_XM_Radio_logo.svg" },
-      { title: "Billboard", url: "https://ca.billboard.com/music/pop/new-and-upcoming-canadian-releases-crash-adams-sum-41-good-kid-more", img: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Billboard_logo.svg" },
-      { title: "The Zach Sang Show", url: "https://www.youtube.com/watch?v=fenyzc8axtc", img: "https://upload.wikimedia.org/wikipedia/commons/4/48/Zach_Sang_Show_logo.png" },
-      { title: "TMRW MAG", url: "https://www.tmrwmagazine.com/en/news/crash-adams-looks-out-for-the-little-guy", img: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Tmrw_Mag_logo.png" }
+      { title: "NBC", url: "https://www.nbc.com/nbc-insider/all-about-crash-adams-agt", img: "./NBC.jpg" },
+      { title: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/shakira-olivia-rodrigo-future-metro-boomin-songs-you-need-to-know-1234992889/", img: "./ROLLING-STONE.jpeg" },
+      { title: "Sirius XM Hits 1", url: "https://www.youtube.com/watch?v=U7aM5iBp5co", img: "./SIRIUS-XM.jpg" },
+      { title: "Billboard", url: "https://ca.billboard.com/music/pop/new-and-upcoming-canadian-releases-crash-adams-sum-41-good-kid-more", img: "./BILLBOARD.webp" },
+      { title: "The Zach Sang Show", url: "https://www.youtube.com/watch?v=fenyzc8axtc", img: "./ZACH-SANG.jpg" },
+      { title: "TMRW MAG", url: "https://www.tmrwmagazine.com/en/news/crash-adams-looks-out-for-the-little-guy", img: "./TMRW-MAG.jpg" }
     ]
   }
 };
@@ -231,6 +242,24 @@ const tiktokCountries = () => ([
   { name: "Brazil", value: 2.0 }
 ]);
 
+// Crash Adams Network
+const crashAdamNetworkStats = () => ({ followers: 2500000, engagementRate: 9.84, totalImpressions: 133000000, shares: 302000, views: 155000000, likes: 14000000, comments: 295000 });
+const crashAdamNetworkGender = () => ({ male: 61.65, female: 37.37 });
+const crashAdamNetworkAges = () => ([
+  { range: "18–24", value: 24.98 },
+  { range: "25–34", value: 35.72 },
+  { range: "35–44", value: 22.42 },
+  { range: "45–54", value: 10.97 },
+  { range: "55+", value: 5.88 }
+]);
+const crashAdamNetworkCountries = () => ([
+  { name: "United States", value: 9.16 },
+  { name: "Other", value: 60.54 },
+  { name: "Philippines", value: 6.35 },
+  { name: "South Africa", value: 4.51 },
+  { name: "Nigeria", value: 2.59 },
+]);
+
 const instagramStats = () => ({ followers: 3400000, engagementRate: 13, totalImpressions: 62000000, shares: 401000, views: 203000000, likes: 7500000, comments: 125000 });
 const instagramGender = () => ({ male: 67.3, female: 32.7 });
 const instagramAges = () => ([
@@ -247,6 +276,23 @@ const instagramCountries = () => ([
   { name: "India", value: 4.8 },
   { name: "Brazil", value: 3.2 },
   { name: "Malaysia", value: 2.0 }
+]);
+
+
+const facebookStats = () => ({ followers: 3200000, engagementRate: 7.2, totalImpressions: 68000000, shares: 60000, views: 133000000, likes: 4800000, comments: 49000 });
+const facebookGender = () => ({ male: 64, female: 36 });
+const facebookAges = () => ([
+  { range: "18–24", value: 22.1 },
+  { range: "25–34", value: 39.3 },
+  { range: "35–44", value: 22.3 },
+  // { range: "45–54", value: 7.5 },
+  // { range: "55–64", value: 2.9 }
+]);
+const facebookCountries = () => ([
+  { name: "United States", value: 27.0 },
+  { name: "Philippines", value: 15.2 },
+  { name: "Nigeria", value: 6.0 },
+  { name: "South Africa", value: 5.4 },
 ]);
 
 const snapchatStats = () => ({ followers: 1100000, engagementRate: null, totalImpressions: 13000000, shares: null, views: 70000000, likes: null, comments: null });
@@ -358,7 +404,7 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
         {links.map((item, i) => (
           <div key={i} className="flex flex-col gap-1">
             <div
-              className={`text-[10px] uppercase tracking-widest ${itemTitleBold ? "font-semibold" : ""}`}
+              className={`text-[16px] uppercase tracking-widest ${itemTitleBold ? "font-semibold" : ""}`}
               style={{ color: itemTitleColor ?? c.muted }}
             >
               {item.title || "Featured"}
@@ -419,7 +465,7 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
 // =====================
 function StatCard({ label, value, suffix, colors }) {
   return (
-    <Card className="border shadow-sm" style={{ background: colors._cardBg, borderColor: colors.border, color: colors.text }}>
+    <Card className="border shadow-md" style={{ background: colors._cardBg, borderColor: colors.border, color: colors.text }}>
       <CardContent>
         <div className="text-[10px] uppercase tracking-widest" style={{ color: colors.muted }}>{label}</div>
         <div className="mt-2 text-3xl font-semibold">{fmtShort(value)}{suffix || ""}</div>
@@ -453,7 +499,7 @@ function HighlightsGrid({ items = [], colors = {} }) {
 function BrandCollabsSection({ cfg = DEFAULT_CONFIG.brandCollabs, colors }) {
   const border = { borderColor: colors.border };
   return (
-    <Card style={{ background: colors._cardBg, ...border }}>
+    <Card className='shadow-md' style={{ background: colors._cardBg, ...border }}>
       <CardContent>
         <h2 className="text-xl font-bold tracking-wide mb-4 border-b pb-2 uppercase" style={{ color: colors.text, borderColor: colors.border }}>
           {cfg.title}
@@ -480,7 +526,7 @@ function BrandCollabsSection({ cfg = DEFAULT_CONFIG.brandCollabs, colors }) {
 function PressSection({ cfg = DEFAULT_CONFIG.press, colors }) {
   const border = { borderColor: colors.border };
   return (
-    <Card style={{ background: colors._cardBg, ...border }}>
+    <Card className='shadow-md' style={{ background: colors._cardBg, ...border }}>
       <CardContent>
         <h2 className="text-xl font-bold tracking-wide mb-4 border-b pb-2 uppercase" style={{ color: colors.text, borderColor: colors.border }}>
           {cfg.title}
@@ -496,10 +542,11 @@ function PressSection({ cfg = DEFAULT_CONFIG.press, colors }) {
               style={{ borderColor: colors.border }}
             >
               {a.img && (
-                <div className="h-24 flex items-center justify-center bg-white border-b" style={{ borderColor: colors.border }}>
-                  <img src={a.img} alt={a.title} className="max-h-16 object-contain" />
+                <div className="aspect-[16/9] w-full bg-white border-b" style={{ borderColor: colors.border }}>
+                  <img src={a.img} alt={a.title} className="w-full h-full object-cover" />
                 </div>
               )}
+
               <div className="p-4">
                 <div className="font-semibold mb-2" style={{ color: colors.text }}>{a.title}</div>
                 <div className="text-sm break-all" style={{ color: colors.muted }}>{a.url}</div>
@@ -526,7 +573,10 @@ function EditableAnalyticsDashboard() {
   const [platformData, setPlatformData] = useState(() => ensurePlatformData({
     youtube: { username: "@crashadams", avatar: "", stats: youtubeStats(), gender: youtubeGender(), ages: youtubeAges(), countries: youtubeCountries() },
     tiktok: { username: "@crashadams", avatar: "", stats: tiktokStats(), gender: tiktokGender(), ages: tiktokAges(), countries: tiktokCountries() },
+    crash_adams_network: { username: "@crashadams", avatar: "", stats: crashAdamNetworkStats(), gender: crashAdamNetworkGender(), ages: crashAdamNetworkAges(), countries: crashAdamNetworkCountries() },
+
     instagram: { username: "@crashadams", avatar: "", stats: instagramStats(), gender: instagramGender(), ages: instagramAges(), countries: instagramCountries() },
+    facebook: { username: "@crashadams", avatar: "", stats: facebookStats(), gender: facebookGender(), ages: facebookAges(), countries: facebookCountries() },
     snapchat: { username: "@crashadams", avatar: "", stats: snapchatStats(), gender: snapchatGender(), ages: snapchatAges(), countries: snapchatCountries() }
   }));
   const [labels] = useState(DEFAULT_CONFIG.labels);
@@ -581,7 +631,7 @@ function EditableAnalyticsDashboard() {
     <div className="min-h-screen p-6 md:p-8" style={{ background: colors._pageBg, color: colors.text, fontFamily: "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" }}>
       <div className="max-w-[1100px] mx-auto space-y-5">
         {/* Header */}
-        <Card className="overflow-hidden" style={{ background: colors._cardBg, borderColor: colors.border }}>
+        <Card className="overflow-hidden shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
           <CardContent>
             <div className="flex gap-3 items-center">
               <div
@@ -697,7 +747,7 @@ function EditableAnalyticsDashboard() {
                 <button
                   key={p}
                   onClick={() => setPlatform(p)}
-                  className={`px-3 py-1 rounded-md border inline-flex items-center gap-1.5 ${platform === p ? "opacity-100" : "opacity-80 hover:opacity-100"}`}
+                  className={`px-3 py-1 cursor-pointer rounded-md border inline-flex items-center gap-1.5 ${platform === p ? "opacity-100" : "opacity-80 hover:opacity-100"}`}
                   style={{ borderColor: colors.border, background: platform === p ? colors.secondary : "transparent", color: platform === p ? "#0b0b0b" : colors.text }}
                 >
                   <span className="h-4 w-4 rounded-sm overflow-hidden border inline-flex items-center justify-center" style={{ borderColor: colors.border, background: colors.border }}>
@@ -723,17 +773,17 @@ function EditableAnalyticsDashboard() {
         {view === "brands" ? (
           <>
             {/* FEATURED VIDEOS */}
-            <Card className="rounded-2xl mt-0" id="brands" style={{ background: colors._cardBg, borderColor: colors.border }}>
+            <Card className="rounded-2xl shadow-md mt-0" id="brands" style={{ background: colors._cardBg, borderColor: colors.border }}>
               <CardContent>
                 <div className="text-xs uppercase tracking-widest mb-3 font-bold" style={{ color: colors.text }}>
-                  FEATURED VIDEOS
+                  Notable Campaigns
                 </div>
                 <VideoGallery links={tagVideos.featured} colors={colors} itemTitleBold itemTitleColor={colors.text} />
               </CardContent>
             </Card>
 
             {/* LIVE MUSIC ACTIVATIONS */}
-            <Card className="rounded-2xl" style={{ background: colors._cardBg, borderColor: colors.border }}>
+            <Card className="rounded-2xl shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
               <CardContent>
                 <div className="text-xs uppercase tracking-widest mb-3 font-bold" style={{ color: colors.text }}>
                   LIVE MUSIC ACTIVATIONS
@@ -744,7 +794,7 @@ function EditableAnalyticsDashboard() {
           </>
         ) : view === "analytics" ? (
           <>
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-3 ">
               <StatCard colors={colors} label={labels.followers} value={active.stats.followers} />
               <StatCard colors={colors} label={labels.engagement} value={active.stats.engagementRate} suffix={active.stats.engagementRate == null ? "" : "%"} />
               <StatCard colors={colors} label={labels.totalImpressions} value={active.stats.totalImpressions} />
@@ -758,7 +808,7 @@ function EditableAnalyticsDashboard() {
               <StatCard colors={colors} label={labels.comments} value={active.stats.comments} />
 
               {/* Gender Pie */}
-              <Card className="rounded-2xl" style={{ background: colors._cardBg, borderColor: colors.border }}>
+              <Card className="rounded-2xl shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
                 <CardContent>
                   <div className="text-xs uppercase tracking-widest mb-2" style={{ color: colors.muted }}>{labels.gender}</div>
                   <div className="h-52">
@@ -781,7 +831,7 @@ function EditableAnalyticsDashboard() {
             </div>
 
             {/* Ages */}
-            <Card className="rounded-2xl" style={{ background: colors._cardBg, borderColor: colors.border }}>
+            <Card className="rounded-2xl shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
               <CardContent>
                 <div className="text-xs uppercase tracking-widest mb-4" style={{ color: colors.muted }}>{labels.ageGender}</div>
                 <div className="h-64">
@@ -789,7 +839,11 @@ function EditableAnalyticsDashboard() {
                     <BarChart data={barData} layout="vertical" margin={{ left: 50 }}>
                       <XAxis type="number" hide domain={[0, 100]} />
                       <YAxis type="category" dataKey="range" tick={{ fill: colors.muted }} width={60} />
-                      <Tooltip contentStyle={tooltipStyle} />
+                      {/* <Tooltip contentStyle={tooltipStyle} /> */}
+                      <Tooltip
+                        contentStyle={tooltipStyle}
+                        formatter={(value) => `${value}%`}
+                      />
                       <Bar dataKey="value" radius={[0, 12, 12, 0]} fill={colors.primary} />
                     </BarChart>
                   </ResponsiveContainer>
@@ -798,7 +852,7 @@ function EditableAnalyticsDashboard() {
             </Card>
 
             {/* Countries */}
-            <Card className="rounded-2xl" style={{ background: colors._cardBg, borderColor: colors.border }}>
+            <Card className="rounded-2xl shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
               <CardContent>
                 <div className="text-xs uppercase tracking-widest mb-4" style={{ color: colors.muted }}>{labels.topCountries}</div>
                 <div className="grid gap-3">
@@ -820,17 +874,42 @@ function EditableAnalyticsDashboard() {
         ) : (
           <>
             {/* WHO WE ARE */}
-            <Card id="overview" style={{ background: colors._cardBg, borderColor: colors.border }}>
+            <Card id="overview" className='shadow-md' style={{ background: colors._cardBg, borderColor: colors.border }}>
               <CardContent>
                 <h2 className="text-xl font-bold tracking-wide mb-3 border-b pb-2 uppercase" style={{ color: colors.text, borderColor: colors.border }}>
-                  WHO WE ARE:
+                  Mission:
                 </h2>
-                <p className="text-base leading-6" style={{ color: colors.text }}>{DEFAULT_CONFIG.bioText}</p>
+                <p className="text-base leading-6" style={{ color: colors.text }}>
+                  Crash Adams is a Toronto-based pop duo made up of childhood friends Rafaele "Crash"
+                  Massarelli and Vince "Adams" Sasso. They've built a dedicated fanbase and launched a
+                  successful music career by leveraging their ability to go insanely viral through fun and authentic
+                  content.Their music is an infectious blend of pop and pop-rock, defined by catchy hooks and
+                  feel-good, cinematic storytelling. <br />
+                  <br />
+                  In 2025/26, they’ll expand their viral short-form series while taking fans on the road—sharing
+                  concert footage, press moments, tour life, and the process of creating music and videos.
+                  Rafaele and Vince bring fans closer by showing both the highs of performing and the
+                  behind-the-scenes of their journey
+                </p>
+                <br />
+                <h2 className="font-bold">Partnership Opportunities
+                </h2>
+                <ul className=" list-disc ml-10 mt-3"><li>
+                  TikTok/IG Reels integrations
+                </li>
+                  <li>Facebook/Facebook Reels Integration</li>
+                  <li>IG/FB Stories Integration</li>
+                  <li>Snapchat integration</li>
+                  <li> YouTube shorts/sponsored mentions</li>
+                  <li>Tour sponsorships & live activations</li>
+                  <li>Merch collaborations</li>
+                  <li>Whitelisting/paid media amplification</li>
+                </ul>
               </CardContent>
             </Card>
 
             {/* HIGHLIGHTS */}
-            <Card style={{ background: colors._cardBg, borderColor: colors.border }}>
+            <Card className='shadow-md' style={{ background: colors._cardBg, borderColor: colors.border }}>
               <CardContent>
                 <h2 className="text-xl font-bold tracking-wide mb-4 border-b pb-2 uppercase" style={{ color: colors.text, borderColor: colors.border }}>
                   HIGHLIGHTS:
