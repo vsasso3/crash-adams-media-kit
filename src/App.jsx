@@ -348,11 +348,24 @@ const ensurePlatformData = (pd) => {
 // =====================
 function toEmbed(url) {
   if (!url) return "";
+  
+  // YouTube handling (existing)
   const ytShort = url.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{6,})/);
   if (ytShort) return `https://www.youtube.com/embed/${ytShort[1]}`;
   const yt = url.match(/(?:youtu\.be\/|v=)([A-Za-z0-9_-]{6,})/);
   if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
-  return url; // Non-YouTube sites may block iframes
+  
+  // TikTok handling - extract video ID and use embed URL
+  const tiktok = url.match(/tiktok\.com\/@[\w.-]+\/video\/(\d+)/);
+  if (tiktok) return `https://www.tiktok.com/embed/v2/${tiktok[1]}`;
+  
+  // Instagram handling - extract post ID and use embed URL  
+  const igReel = url.match(/instagram\.com\/reel\/([A-Za-z0-9_-]+)/);
+  if (igReel) return `https://www.instagram.com/p/${igReel[1]}/embed/`;
+  const igPost = url.match(/instagram\.com\/p\/([A-Za-z0-9_-]+)/);
+  if (igPost) return `https://www.instagram.com/p/${igPost[1]}/embed/`;
+  
+  return url;
 }
 const getVideoDesc = (item) => item?.desc ?? item?.description ?? "";
 
