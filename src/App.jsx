@@ -10,15 +10,7 @@ import crashIcon from '../public/favicon.png';
 // =====================
 function DashboardShell({ children }) {
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-[240px_1fr]">
-      <aside className="hidden md:block border-r bg-white/50 backdrop-blur">
-        <div className="p-4 text-xl font-bold">Creator Dashboard</div>
-        <nav className="p-2 space-y-1 text-sm">
-          <a className="block rounded px-3 py-2 hover:bg-gray-100" href="#overview">Overview</a>
-          <a className="block rounded px-3 py-2 hover:bg-gray-100" href="#analytics">Analytics</a>
-          <a className="block rounded px-3 py-2 hover:bg-gray-100" href="#brands">Brands / Performances</a>
-        </nav>
-      </aside>
+    <div className="min-h-screen    ">
       <main className="bg-gray-50/60">
         <header className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b">
           <div className="max-w-[1200px] mx-auto px-4 py-3 flex items-center justify-between">
@@ -26,7 +18,7 @@ function DashboardShell({ children }) {
             <div className="text-xs text-gray-500">Editable React dashboard</div>
           </div>
         </header>
-        <div className="max-w-[1200px] mx-auto px-4 py-6">{children}</div>
+        <div className=" mx-auto px-4 py-6">{children}</div>
       </main>
     </div>
   );
@@ -66,16 +58,35 @@ const makeBg = (solid, grad) => (grad && grad.enabled && grad.from && grad.to)
 // =====================
 // Theme / Constants
 // =====================
-const PLATFORM_ORDER = ["youtube", "tiktok", "crash_adams_network", "facebook", "instagram", "snapchat"];
-const PLATFORM_LABEL = { youtube: "YouTube", tiktok: "TikTok", crash_adams_network: "Crash Adams Network", facebook: "Facebook", instagram: "Instagram", snapchat: "Snapchat" };
-const PLATFORM_ICON = {
-  youtube: <FaYoutube className="text-red-600" />,
-  tiktok: <FaTiktok className="text-black" />,
-  crash_adams_network: <img src={crashIcon} alt="Crash Adams Network" className="w-[3rem] h-[3rem] " />,
-  facebook: <FaFacebook className="text-blue-600" />,
-  instagram: <FaInstagram className="text-pink-500" />,
-  snapchat: <FaSnapchatGhost className="text-yellow-400" />,
+const PLATFORM_ORDER = ["youtube", "tiktok", "tik_tok_backup", "facebook", "instagram", "snapchat"];
+
+const PLATFORM_LABEL = {
+  youtube: "YouTube",
+  tiktok: "TikTok",
+  tik_tok_backup: "Tik Tok Backup Page",
+  facebook: "Facebook",
+  instagram: "Instagram",
+  snapchat: "Snapchat"
 };
+
+const PLATFORM_ICON = {
+  youtube: <FaYoutube className="text-red-600 text-[24px]" />,
+  tiktok: <FaTiktok className="text-black text-[24px]" />,
+  tik_tok_backup: <img src={crashIcon} alt="Tik Tok Backup Page " className="w-8 h-8" />,
+  facebook: <FaFacebook className="text-blue-600 text-[24px]" />,
+  instagram: <FaInstagram className="text-pink-500 text-[24px]" />,
+  snapchat: <FaSnapchatGhost className="text-yellow-400 text-[24px]" />,
+};
+
+const PLATFORM_LINKS = {
+  youtube: "https://www.youtube.com/channel/UCAxCk_CU0lnz6vJyslY9-Tw",
+  tiktok: "https://www.tiktok.com/@crashadams?lang=en",
+  tik_tok_backup: "https://www.tiktok.com/@crashadams?lang=en", // backup URL (if you have one)
+  instagram: "https://www.instagram.com/crashadams/",
+  facebook: "https://www.facebook.com/crashadamsmusic/",
+  snapchat: "https://www.snapchat.com/@crashadamsmusic?locale=en-US",
+};
+
 const STORAGE_KEY = "creator_analytics_v1";
 
 // =====================
@@ -242,7 +253,7 @@ const tiktokCountries = () => ([
   { name: "Brazil", value: 2.0 }
 ]);
 
-// Crash Adams Network
+// Tik Tok Backup Page  
 const crashAdamNetworkStats = () => ({ followers: 2500000, engagementRate: 9.84, totalImpressions: 133000000, shares: 302000, views: 155000000, likes: 14000000, comments: 295000 });
 const crashAdamNetworkGender = () => ({ male: 61.65, female: 37.37 });
 const crashAdamNetworkAges = () => ([
@@ -305,12 +316,11 @@ const snapchatAges = () => ([
   { range: "55–64", value: 2.9 }
 ]);
 const snapchatCountries = () => ([
-  { name: "United States", value: 15.8 },
-  { name: "Indonesia", value: 9.8 },
-  { name: "Unknown", value: 9.1 },
-  { name: "India", value: 4.8 },
-  { name: "Brazil", value: 3.2 },
-  { name: "Malaysia", value: 2.0 }
+  { name: "Makkah", value: 3 },
+  { name: "Riyadh", value: 3 },
+  { name: "Tashkent City", value: 3 },
+  { name: "Punjab", value: 2 },
+  { name: "Arbil", value: 2 },
 ]);
 
 // =====================
@@ -347,130 +357,196 @@ const ensurePlatformData = (pd) => {
 // Video Helpers
 // =====================
 function toEmbed(url) {
-  if (!url) return "";
-  
-  // YouTube handling (existing)
-  const ytShort = url.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{6,})/);
-  if (ytShort) return `https://www.youtube.com/embed/${ytShort[1]}`;
-  const yt = url.match(/(?:youtu\.be\/|v=)([A-Za-z0-9_-]{6,})/);
-  if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
-  
-  // TikTok handling - extract video ID and use embed URL
-  const tiktok = url.match(/tiktok\.com\/@[\w.-]+\/video\/(\d+)/);
-  if (tiktok) return `https://www.tiktok.com/embed/v2/${tiktok[1]}`;
-  
-  // Instagram handling - extract post ID and use embed URL  
-  const igReel = url.match(/instagram\.com\/reel\/([A-Za-z0-9_-]+)/);
-  if (igReel) return `https://www.instagram.com/p/${igReel[1]}/embed/`;
-  const igPost = url.match(/instagram\.com\/p\/([A-Za-z0-9_-]+)/);
-  if (igPost) return `https://www.instagram.com/p/${igPost[1]}/embed/`;
-  
-  return url;
+  if (!url) return ""
+
+  // YouTube handling
+  const ytShort = url.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{6,})/)
+  if (ytShort) return `https://www.youtube.com/embed/${ytShort[1]}?modestbranding=1&rel=0&showinfo=0`
+  const yt = url.match(/(?:youtu\.be\/|v=)([A-Za-z0-9_-]{6,})/)
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}?modestbranding=1&rel=0&showinfo=0`
+
+  // TikTok handling
+  const tiktok = url.match(/tiktok\.com\/@[\w.-]+\/video\/(\d+)/)
+  if (tiktok) return `https://www.tiktok.com/embed/v2/${tiktok[1]}?lang=en-US`
+
+  // Instagram handling
+  const igReel = url.match(/instagram\.com\/reel\/([A-Za-z0-9_-]+)/)
+  if (igReel)
+    return `https://www.instagram.com/p/${igReel[1]}/embed/captioned/?cr=1&v=14&wp=1080&rd=https%3A%2F%2Fwww.instagram.com&rp=%2Fp%2F${igReel[1]}%2F#%7B%22ci%22%3A0%2C%22os%22%3A0%7D`
+  const igPost = url.match(/instagram\.com\/p\/([A-Za-z0-9_-]+)/)
+  if (igPost)
+    return `https://www.instagram.com/p/${igPost[1]}/embed/captioned/?cr=1&v=14&wp=1080&rd=https%3A%2F%2Fwww.instagram.com&rp=%2Fp%2F${igPost[1]}%2F#%7B%22ci%22%3A0%2C%22os%22%3A0%7D`
+
+  return url
 }
 const getVideoDesc = (item) => item?.desc ?? item?.description ?? "";
-
 function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColor }) {
-  const [customThumbs, setCustomThumbs] = useState({});
+  const [customThumbs, setCustomThumbs] = useState({})
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined") return
     try {
-      const saved = window.localStorage.getItem(STORAGE_KEY);
+      const saved = window.localStorage.getItem(STORAGE_KEY)
       if (saved) {
-        const cfg = JSON.parse(saved);
-        if (cfg?.customThumbs) setCustomThumbs(cfg.customThumbs);
+        const cfg = JSON.parse(saved)
+        if (cfg?.customThumbs) setCustomThumbs(cfg.customThumbs)
       }
     } catch { }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined") return
     try {
-      const saved = window.localStorage.getItem(STORAGE_KEY);
-      const cfg = saved ? JSON.parse(saved) : {};
-      cfg.customThumbs = customThumbs;
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
+      const saved = window.localStorage.getItem(STORAGE_KEY)
+      const cfg = saved ? JSON.parse(saved) : {}
+      cfg.customThumbs = customThumbs
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg))
     } catch { }
-  }, [customThumbs]);
+  }, [customThumbs])
 
   const c = {
     muted: DEFAULT_CONFIG.customColors.muted,
     border: DEFAULT_CONFIG.customColors.border,
     _cardBg: DEFAULT_CONFIG.customColors.cardBg,
-    ...colors
-  };
+    ...colors,
+  }
 
   const handlePhotoUpload = (e, i) => {
-    const file = e?.target?.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
+    const file = e?.target?.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
     reader.onload = () => {
-      const dataUrl = String(reader.result || "");
-      setCustomThumbs((prev) => ({ ...prev, [i]: dataUrl }));
-    };
-    reader.readAsDataURL(file);
-  };
+      const dataUrl = String(reader.result || "")
+      setCustomThumbs((prev) => ({ ...prev, [i]: dataUrl }))
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const videoOnlyLinks = links.filter((item) => {
+    if (!item.url) return false
+    // Check if URL is a valid video platform URL
+    return (
+      item.url.includes("youtube.com") ||
+      item.url.includes("youtu.be") ||
+      item.url.includes("tiktok.com") ||
+      item.url.includes("instagram.com")
+    )
+  })
+
+  // Separate videos by platform for different layouts
+  const tiktokIgVideos = videoOnlyLinks.filter(
+    (item) => item.url && (item.url.includes("tiktok.com") || item.url.includes("instagram.com")),
+  )
+
+  const youtubeVideos = videoOnlyLinks.filter(
+    (item) => item.url && (item.url.includes("youtube.com") || item.url.includes("youtu.be")),
+  )
+
+  const otherVideos = videoOnlyLinks.filter(
+    (item) =>
+      !item.url ||
+      (!item.url.includes("tiktok.com") &&
+        !item.url.includes("instagram.com") &&
+        !item.url.includes("youtube.com") &&
+        !item.url.includes("youtu.be")),
+  )
+
+  const renderVideoItem = (item, i, isVertical = false) => (
+    <div key={i} className="flex flex-col gap-1">
+      <div
+        className={`text-[16px] line-clamp-1 ${itemTitleBold ? "font-semibold" : ""}`}
+        style={{ color: itemTitleColor ?? c.muted }}
+      >
+        {item.title || "Featured"}
+      </div>
+      <div
+        className={`w-full ${isVertical ? "h-80" : "h-40"} rounded-md overflow-hidden border flex items-center justify-center`}
+        style={{ borderColor: c.border, background: c._cardBg }}
+      >
+        {item.url ? (
+          <iframe
+            title={`video-${i}`}
+            src={toEmbed(item.url)}
+            className="w-full h-full"
+            sandbox="allow-scripts allow-same-origin allow-presentation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ border: "none" }}
+          />
+        ) : item.allowPhoto ? (
+          customThumbs[i] ? (
+            <div className="relative w-full h-full">
+              <img
+                src={customThumbs[i] || "/placeholder.svg"}
+                alt="custom thumbnail"
+                className="h-full w-full object-cover"
+              />
+              <label
+                className="absolute bottom-2 right-2 px-2 py-1 rounded border bg-white/80 backdrop-blur text-[10px] cursor-pointer"
+                style={{ color: c.muted, borderColor: c.border }}
+              >
+                Replace Photo
+                <input type="file" accept="image/*" className="hidden" onChange={(e) => handlePhotoUpload(e, i)} />
+              </label>
+            </div>
+          ) : (
+            <label className="text-xs cursor-pointer" style={{ color: c.muted }}>
+              Upload Photo
+              <input type="file" accept="image/*" className="hidden" onChange={(e) => handlePhotoUpload(e, i)} />
+            </label>
+          )
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: c.muted }}>
+            No video
+          </div>
+        )}
+      </div>
+      {getVideoDesc(item) && (
+        <div className="text-xs leading-snug mt-1" style={{ color: c.muted }}>
+          {getVideoDesc(item)}
+        </div>
+      )}
+    </div>
+  )
 
   return (
-    <div className="space-y-3">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-        {links.map((item, i) => (
-          <div key={i} className="flex flex-col gap-1">
-            <div
-              className={`text-[16px] uppercase tracking-widest ${itemTitleBold ? "font-semibold" : ""}`}
-              style={{ color: itemTitleColor ?? c.muted }}
-            >
-              {item.title || "Featured"}
-            </div>
-            <div
-              className="w-full h-40 rounded-md overflow-hidden border flex items-center justify-center"
-              style={{ borderColor: c.border, background: c._cardBg }}
-            >
-              {item.url ? (
-                <iframe
-                  title={`video-${i}`}
-                  src={toEmbed(item.url)}
-                  className="w-full h-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : item.allowPhoto ? (
-                customThumbs[i] ? (
-                  <div className="relative w-full h-full">
-                    <img src={customThumbs[i]} alt="custom thumbnail" className="h-full w-full object-cover" />
-                    <label
-                      className="absolute bottom-2 right-2 px-2 py-1 rounded border bg-white/80 backdrop-blur text-[10px] cursor-pointer"
-                      style={{ color: c.muted, borderColor: c.border }}
-                    >
-                      Replace Photo
-                      <input type="file" accept="image/*" className="hidden" onChange={(e) => handlePhotoUpload(e, i)} />
-                    </label>
-                  </div>
-                ) : (
-                  <label className="text-xs cursor-pointer" style={{ color: c.muted }}>
-                    Upload Photo
-                    <input type="file" accept="image/*" className="hidden" onChange={(e) => handlePhotoUpload(e, i)} />
-                  </label>
-                )
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: c.muted }}>
-                  No video
-                </div>
-              )}
-            </div>
-            {getVideoDesc(item) && (
-              <div className="text-xs leading-snug mt-1" style={{ color: c.muted }}>
-                {getVideoDesc(item)}
-              </div>
-            )}
+    <div className="space-y-6">
+      {/* TikTok/Instagram Videos - Vertical Layout */}
+      {tiktokIgVideos.length > 0 && (
+        <div>
+          <div className="text-sm font-medium mb-3" style={{ color: c.muted }}>
+            TikTok & Instagram
           </div>
-        ))}
-      </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 " >
+            {tiktokIgVideos.map((item, i) => renderVideoItem(item, `tiktok-${i}`, true))}
+          </div>
+        </div>
+      )}
+
+      {/* Other Videos */}
+      {otherVideos.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {otherVideos.map((item, i) => renderVideoItem(item, `other-${i}`))}
+        </div>
+      )}
+
+      {/* YouTube Videos - Horizontal Layout at Bottom */}
+      {youtubeVideos.length > 0 && (
+        <div>
+          <div className="text-sm font-medium mb-3" style={{ color: c.muted }}>
+            YouTube
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {youtubeVideos.map((item, i) => renderVideoItem(item, `youtube-${i}`))}
+          </div>
+        </div>
+      )}
+
       <div className="text-[11px]" style={{ color: c.muted }}>
         Note: YouTube links auto-embed. TikTok/Instagram may block iframes depending on browser settings.
       </div>
     </div>
-  );
+  )
 }
 
 // =====================
@@ -556,7 +632,7 @@ function PressSection({ cfg = DEFAULT_CONFIG.press, colors }) {
             >
               {a.img && (
                 <div className="aspect-[16/9] w-full bg-white border-b" style={{ borderColor: colors.border }}>
-                  <img src={a.img} alt={a.title} className="w-full h-full object-cover" />
+                  <img src={a.img} alt={a.title} className="w-full h-full object-center" />
                 </div>
               )}
 
@@ -586,7 +662,7 @@ function EditableAnalyticsDashboard() {
   const [platformData, setPlatformData] = useState(() => ensurePlatformData({
     youtube: { username: "@crashadams", avatar: "", stats: youtubeStats(), gender: youtubeGender(), ages: youtubeAges(), countries: youtubeCountries() },
     tiktok: { username: "@crashadams", avatar: "", stats: tiktokStats(), gender: tiktokGender(), ages: tiktokAges(), countries: tiktokCountries() },
-    crash_adams_network: { username: "@crashadams", avatar: "", stats: crashAdamNetworkStats(), gender: crashAdamNetworkGender(), ages: crashAdamNetworkAges(), countries: crashAdamNetworkCountries() },
+    tik_tok_backup: { username: "@crashadams", avatar: "", stats: crashAdamNetworkStats(), gender: crashAdamNetworkGender(), ages: crashAdamNetworkAges(), countries: crashAdamNetworkCountries() },
 
     instagram: { username: "@crashadams", avatar: "", stats: instagramStats(), gender: instagramGender(), ages: instagramAges(), countries: instagramCountries() },
     facebook: { username: "@crashadams", avatar: "", stats: facebookStats(), gender: facebookGender(), ages: facebookAges(), countries: facebookCountries() },
@@ -644,12 +720,21 @@ function EditableAnalyticsDashboard() {
     <div className="min-h-screen p-6 md:p-8" style={{ background: colors._pageBg, color: colors.text, fontFamily: "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial" }}>
       <div className="max-w-[1100px] mx-auto space-y-5">
         {/* Header */}
-        <Card className="overflow-hidden shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
+        <Card
+          className="overflow-hidden shadow-md"
+          style={{ background: colors._cardBg, borderColor: colors.border }}
+        >
           <CardContent>
-            <div className="flex gap-3 items-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
+              {/* Avatar */}
               <div
-                className="relative rounded-xl overflow-hidden border shrink-0 flex items-center justify-center"
-                style={{ width: avatarSize, height: avatarSize, borderColor: colors.border, background: colors.border }}
+                className="relative rounded-xl overflow-hidden border shrink-0 flex items-center justify-center mx-auto sm:mx-0"
+                style={{
+                  width: avatarSize,
+                  height: avatarSize,
+                  borderColor: colors.border,
+                  background: colors.border,
+                }}
               >
                 {imgOk && profile.photo ? (
                   <img
@@ -659,7 +744,10 @@ function EditableAnalyticsDashboard() {
                     onError={() => setImgOk(false)}
                   />
                 ) : (
-                  <div className="h-full w-full flex items-center justify-center text-xs" style={{ color: colors.muted, background: "#fff" }}>
+                  <div
+                    className="h-full w-full flex items-center justify-center text-xs"
+                    style={{ color: colors.muted, background: "#fff" }}
+                  >
                     Add
                   </div>
                 )}
@@ -667,16 +755,24 @@ function EditableAnalyticsDashboard() {
                   type="file"
                   accept="image/*"
                   onChange={(e) => {
-                    const file = e?.target?.files?.[0]; if (!file) return;
+                    const file = e?.target?.files?.[0];
+                    if (!file) return;
                     const reader = new FileReader();
                     reader.onload = () => {
                       const dataUrl = String(reader.result || "");
                       setProfile((prev) => ({ ...prev, photo: dataUrl }));
                       try {
-                        const saved = (typeof window !== "undefined") ? window.localStorage.getItem(STORAGE_KEY) : null;
+                        const saved =
+                          typeof window !== "undefined"
+                            ? window.localStorage.getItem(STORAGE_KEY)
+                            : null;
                         const cfg = saved ? JSON.parse(saved) : {};
                         cfg.profile = { ...(cfg.profile || {}), photo: dataUrl };
-                        if (typeof window !== "undefined") window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
+                        if (typeof window !== "undefined")
+                          window.localStorage.setItem(
+                            STORAGE_KEY,
+                            JSON.stringify(cfg)
+                          );
                       } catch { }
                     };
                     reader.readAsDataURL(file);
@@ -684,21 +780,33 @@ function EditableAnalyticsDashboard() {
                   className="absolute inset-0 opacity-0 cursor-pointer"
                 />
               </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-semibold">{profile.displayName || "Display Name"}</h2>
+
+              {/* Info section */}
+              <div className="flex-1 text-center sm:text-left">
+                <h2 className="text-xl font-semibold">
+                  {profile.displayName || "Display Name"}
+                </h2>
 
                 {/* View Switcher */}
-                <div className="mt-1 flex items-center gap-2 whitespace-nowrap text-xs">
+                <div className="mt-2 flex flex-wrap justify-center sm:justify-start gap-2 text-xs">
                   {[
                     { id: "overview", label: "Overview" },
                     { id: "analytics", label: "Analytics" },
-                    { id: "brands", label: "Brands/Performances" }
+                    { id: "brands", label: "Brands/Performances" },
                   ].map((b) => (
                     <button
                       key={b.id}
                       onClick={() => setView(b.id)}
-                      className={`px-3 py-1 cursor-pointer rounded-full border ${view === b.id ? "opacity-100" : "opacity-80 hover:opacity-100"}`}
-                      style={{ borderColor: colors.border, background: view === b.id ? colors.secondary : "transparent", color: view === b.id ? "#0b0b0b" : colors.text }}
+                      className={`px-6 py-2 cursor-pointer rounded-full border ${view === b.id
+                          ? "opacity-100"
+                          : "opacity-80 hover:opacity-100"
+                        }`}
+                      style={{
+                        borderColor: colors.border,
+                        background:
+                          view === b.id ? colors.secondary : "transparent",
+                        color: view === b.id ? "#0b0b0b" : colors.text,
+                      }}
                     >
                       {b.label}
                     </button>
@@ -706,46 +814,66 @@ function EditableAnalyticsDashboard() {
                 </div>
 
                 {/* Followers summary row */}
-                <div className="mt-3 grid gap-1 sm:flex sm:items-end sm:justify-between">
-                  <div className="flex gap-4">
-
+                <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  {/* Followers + Views */}
+                  <div className="flex justify-center sm:justify-start gap-6">
                     <div>
-                      <div className="text-[9px] uppercase tracking-widest" style={{ color: colors.muted }}>Total Followers</div>
-                      <div className="text-2xl font-semibold">{fmtShort(totalFollowers)}</div>
+                      <div
+                        className="text-[9px] uppercase tracking-widest"
+                        style={{ color: colors.muted }}
+                      >
+                        Total Followers
+                      </div>
+                      <div className="text-2xl font-semibold">
+                        {fmtShort(totalFollowers)}
+                      </div>
                     </div>
-
-                    {/* Total Views */}
                     <div>
-                      <div className="text-[9px] uppercase tracking-widest" style={{ color: colors.muted }}>Total Views</div>
+                      <div
+                        className="text-[9px] uppercase tracking-widest"
+                        style={{ color: colors.muted }}
+                      >
+                        Total Views
+                      </div>
                       <div className="text-2xl font-semibold">10.0B</div>
                     </div>
                   </div>
 
-
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2 bg-customYellow text-customBrown px-4 py-1 rounded-full shadow-sm w-fit">
+                  {/* Contact + Socials */}
+                  <div className="flex flex-col sm:items-end gap-3">
+                    <div className="flex items-center gap-2 bg-customYellow text-customBrown px-4 py-1 rounded-full shadow-sm w-fit mx-auto sm:mx-0">
                       <MdEmail className="text-[18px]" />
                       <a
                         href="mailto:crashadamsmusic@crashadamsmusic.com"
-                        className="font-medium hover:underline"
+                        className="font-medium hover:underline text-xs sm:text-sm"
                       >
                         Contact Us : crashadamsmusic@.com
                       </a>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      {PLATFORM_ORDER.map((p) => (
-                        <div key={p} className="flex items-center gap-2 text-[16px]">
-                          <div className="h-5 w-5 flex items-center justify-center">
-                            <span className="text-[20px]">{PLATFORM_ICON[p]}</span>
-                          </div>
-                          <span>{fmtShort(normalizedPlatformData[p]?.stats?.followers)}</span>
-                        </div>
-                      ))}
+                    <div className="flex flex-wrap justify-center sm:justify-end gap-4">
+                      {PLATFORM_ORDER.filter((p) => p !== "tik_tok_backup").map(
+                        (p) => (
+                          <a
+                            key={p}
+                            href={PLATFORM_LINKS[p]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 hover:opacity-80 transition"
+                          >
+                            <div className="h-7 w-7 flex items-center justify-center">
+                              {PLATFORM_ICON[p]}
+                            </div>
+                            <span className="text-[14px] sm:text-[16px]">
+                              {fmtShort(
+                                normalizedPlatformData[p]?.stats?.followers
+                              )}
+                            </span>
+                          </a>
+                        )
+                      )}
                     </div>
                   </div>
-
-
                 </div>
               </div>
             </div>
@@ -754,13 +882,13 @@ function EditableAnalyticsDashboard() {
 
         {/* Platform Switcher (Analytics only) */}
         {view === "analytics" && (
-          <div className="overflow-x-auto" id="analytics">
-            <div className="flex items-center gap-2 whitespace-nowrap text-xs">
+          <div className="" id="analytics">
+            <div className="flex flex-wrap items-center gap-2 whitespace-nowrap text-xs">
               {PLATFORM_ORDER.map((p) => (
                 <button
                   key={p}
                   onClick={() => setPlatform(p)}
-                  className={`px-3 py-1 cursor-pointer rounded-md border inline-flex items-center gap-1.5 ${platform === p ? "opacity-100" : "opacity-80 hover:opacity-100"}`}
+                  className={`px-2 md:px-4 py-1 md:py-2 cursor-pointer rounded-md border inline-flex items-center gap-1.5 ${platform === p ? "opacity-100" : "opacity-80 hover:opacity-100"}`}
                   style={{ borderColor: colors.border, background: platform === p ? colors.secondary : "transparent", color: platform === p ? "#0b0b0b" : colors.text }}
                 >
                   <span className="h-4 w-4 rounded-sm overflow-hidden border inline-flex items-center justify-center" style={{ borderColor: colors.border, background: colors.border }}>
@@ -905,19 +1033,22 @@ function EditableAnalyticsDashboard() {
                   behind-the-scenes of their journey
                 </p>
                 <br />
-                <h2 className="font-bold">Partnership Opportunities
-                </h2>
-                <ul className=" list-disc ml-10 mt-3"><li>
-                  TikTok/IG Reels integrations
-                </li>
-                  <li>Facebook/Facebook Reels Integration</li>
-                  <li>IG/FB Stories Integration</li>
-                  <li>Snapchat integration</li>
-                  <li> YouTube shorts/sponsored mentions</li>
-                  <li>Tour sponsorships & live activations</li>
-                  <li>Merch collaborations</li>
-                  <li>Whitelisting/paid media amplification</li>
-                </ul>
+                {/* Partnership Opportunities */}
+                <div className="mt-6 border-l-4 border-customYellow pl-4  rounded-md p-4">
+                  <h2 className="text-xl font-extrabold text-customYellow mb-3 uppercase tracking-wider">
+                    Partnership Opportunities
+                  </h2>
+                  <ul className="list-disc ml-6 space-y-2 text-base leading-relaxed font-medium">
+                    <li>TikTok/IG Reels integrations</li>
+                    <li>Facebook/Facebook Reels Integration</li>
+                    <li>IG/FB Stories Integration</li>
+                    <li>Snapchat integration</li>
+                    <li>YouTube shorts/sponsored mentions</li>
+                    <li>Tour sponsorships & live activations</li>
+                    <li>Merch collaborations</li>
+                    <li>Whitelisting/paid media amplification</li>
+                  </ul>
+                </div>
               </CardContent>
             </Card>
 
