@@ -135,7 +135,7 @@ const DEFAULT_CONFIG = {
       { title: "RW & Co", url: "https://www.tiktok.com/@crashadams/video/7535688521193934136?lang=en", description: "" , thumbnail: "./thumbnails/RW.png" },
       { title: "Chicago Cubs", url: "https://www.instagram.com/p/DK7s4UmyR20/?img_index=2&igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/Chicago.png" },
       { title: "HSBC", url: "https://www.youtube.com/shorts/yU87LL9GJLU", description: "" },
-      { title: "Vaughan Mills", url: "https://www.instagram.com/reel/DCBXgcixRMK/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/Vaughan-Mills.png" }
+      { title: "Vaughan Mills", url: "https://www.instagram.com/reel/DCBXgcixRMK/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/VaughanMills.png" }
     ],
     // LIVE MUSIC ACTIVATIONS grid
     moreFeatured: [
