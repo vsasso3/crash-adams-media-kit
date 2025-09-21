@@ -124,12 +124,12 @@ const DEFAULT_CONFIG = {
   tagVideos: {
     // FEATURED grid (replaced per user's latest list)
     featured: [
-      { title: "Lays", url: "https://www.instagram.com/reel/Cu2gKKProiB/?igsh=NTc4MTIwNjQ2YQ==", description: "" },
+      { title: "Lays", url: "https://www.instagram.com/reel/Cu2gKKProiB/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/lays.webp" },
       { title: "Old Spice", url: "https://www.youtube.com/shorts/VdLA0SWpD8Q", description: "" },
       { title: "KFC", url: "https://drive.google.com/file/d/1-ncm5Rs9t86-6QWw06l3ERkRMl3NAsIo/view?usp=sharing", description: "" },
       { title: "Qatar Airlines", url: "https://www.instagram.com/reel/C-iJ8fmoeVn/?hl=en", description: "" },
       { title: "Nissan", url: "https://www.instagram.com/reel/C48O17bLphn/?igsh=NTc4MTIwNjQ2YQ==", description: "" },
-      { title: "Dubai Tourism Board", url: "https://www.tiktok.com/@crashadamsbackup/video/7396452328678886702", description: "" },
+      { title: "Dubai Tourism Board", url: "https://www.tiktok.com/@crashadamsbackup/video/7396452328678886702", description: "",  thumbnail: "./thumbnails/DubaiToursim.png"  },
       { title: "W Hotels", url: "https://www.instagram.com/reel/DFCxRSkxy4m/?igsh=NTc4MTIwNjQ2YQ==", description: "" },
       { title: "US Open", url: "https://www.instagram.com/reel/CwtYLy8vyi1/?igsh=NTc4MTIwNjQ2YQ==", description: "" },
       { title: "RW & Co", url: "https://www.tiktok.com/@crashadams/video/7535688521193934136?lang=en", description: "" },
@@ -380,30 +380,9 @@ function toEmbed(url) {
   return url
 }
 const getVideoDesc = (item) => item?.desc ?? item?.description ?? "";
+// Updated VideoGallery function with thumbnail support for TikTok/Instagram
+
 function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColor }) {
-  const [customThumbs, setCustomThumbs] = useState({})
-
-  useEffect(() => {
-    if (typeof window === "undefined") return
-    try {
-      const saved = window.localStorage.getItem(STORAGE_KEY)
-      if (saved) {
-        const cfg = JSON.parse(saved)
-        if (cfg?.customThumbs) setCustomThumbs(cfg.customThumbs)
-      }
-    } catch { }
-  }, [])
-
-  useEffect(() => {
-    if (typeof window === "undefined") return
-    try {
-      const saved = window.localStorage.getItem(STORAGE_KEY)
-      const cfg = saved ? JSON.parse(saved) : {}
-      cfg.customThumbs = customThumbs
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg))
-    } catch { }
-  }, [customThumbs])
-
   const c = {
     muted: DEFAULT_CONFIG.customColors.muted,
     border: DEFAULT_CONFIG.customColors.border,
@@ -411,15 +390,19 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
     ...colors,
   }
 
-  const handlePhotoUpload = (e, i) => {
-    const file = e?.target?.files?.[0]
-    if (!file) return
-    const reader = new FileReader()
-    reader.onload = () => {
-      const dataUrl = String(reader.result || "")
-      setCustomThumbs((prev) => ({ ...prev, [i]: dataUrl }))
-    }
-    reader.readAsDataURL(file)
+  // Helper function to check if URL is TikTok or Instagram
+  const isTikTokOrInstagram = (url) => {
+    return url && (url.includes("tiktok.com") || url.includes("instagram.com"))
+  }
+
+  // Helper function to check if URL is YouTube
+  const isYouTube = (url) => {
+    return url && (url.includes("youtube.com") || url.includes("youtu.be"))
+  }
+
+  // Helper function to get thumbnail path from item property
+  const getThumbnailPath = (item) => {
+    return item.thumbnail || './thumbnails/default.jpg'
   }
 
   const videoOnlyLinks = links.filter((item) => {
@@ -451,73 +434,101 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
         !item.url.includes("youtu.be")),
   )
 
-  const renderVideoItem = (item, i, isVertical = false) => (
-    <div key={i} className="flex flex-col gap-1">
-      <div
-        className={`text-[16px] line-clamp-1 ${itemTitleBold ? "font-semibold" : ""}`}
-        style={{ color: itemTitleColor ?? c.muted }}
-      >
-        {item.title || "Featured"}
-      </div>
-      <div
-        className={`w-full ${isVertical ? "h-80" : "h-40"} rounded-md overflow-hidden border flex items-center justify-center`}
-        style={{ borderColor: c.border, background: c._cardBg }}
-      >
-        {item.url ? (
-          <iframe
-            title={`video-${i}`}
-            src={toEmbed(item.url)}
-            className="w-full h-full"
-            sandbox="allow-scripts allow-same-origin allow-presentation"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{ border: "none" }}
-          />
-        ) : item.allowPhoto ? (
-          customThumbs[i] ? (
-            <div className="relative w-full h-full">
-              <img
-                src={customThumbs[i] || "/placeholder.svg"}
-                alt="custom thumbnail"
-                className="h-full w-full object-cover"
-              />
-              <label
-                className="absolute bottom-2 right-2 px-2 py-1 rounded border bg-white/80 backdrop-blur text-[10px] cursor-pointer"
-                style={{ color: c.muted, borderColor: c.border }}
-              >
-                Replace Photo
-                <input type="file" accept="image/*" className="hidden" onChange={(e) => handlePhotoUpload(e, i)} />
-              </label>
-            </div>
+  const renderVideoItem = (item, i, isVertical = false) => {
+    const isTikTokIg = isTikTokOrInstagram(item.url)
+    const isYT = isYouTube(item.url)
+    const thumbnailPath = getThumbnailPath(item)
+
+    return (
+      <div key={i} className="flex flex-col gap-1">
+        <div
+          className={`text-[16px] line-clamp-1 ${itemTitleBold ? "font-semibold" : ""}`}
+          style={{ color: itemTitleColor ?? c.muted }}
+        >
+          {item.title || "Featured"}
+        </div>
+        <div
+          className={`w-full ${isVertical ? "h-80" : "h-40"} rounded-md overflow-hidden border flex items-center justify-center relative group cursor-pointer`}
+          style={{ borderColor: c.border, background: c._cardBg }}
+          onClick={() => {
+            if (item.url) {
+              window.open(item.url, '_blank', 'noopener,noreferrer')
+            }
+          }}
+        >
+          {item.url ? (
+            <>
+              {isTikTokIg ? (
+                // Render thumbnail for TikTok/Instagram with play overlay
+                <div className="relative w-full h-full">
+                  <img
+                    src={thumbnailPath}
+                    alt={item.title || "Video thumbnail"}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback to a default thumbnail or placeholder
+                      e.target.src = "./thumbnails/default.jpg"
+                    }}
+                  />
+                  {/* Play button overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                    <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                      <svg
+                        className="w-6 h-6 text-gray-800 ml-1"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                  {/* Platform indicator */}
+                  <div className="absolute top-2 right-2 px-2 py-1 bg-black/70 text-white text-xs rounded">
+                    {item.url.includes("tiktok.com") ? "TikTok" : "Instagram"}
+                  </div>
+                </div>
+              ) : isYT ? (
+                // Keep YouTube embeds as before
+                <iframe
+                  title={`video-${i}`}
+                  src={toEmbed(item.url)}
+                  className="w-full h-full"
+                  sandbox="allow-scripts allow-same-origin allow-presentation"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ border: "none" }}
+                />
+              ) : (
+                // Fallback for other video types
+                <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: c.muted }}>
+                  Video not supported
+                </div>
+              )}
+            </>
           ) : (
-            <label className="text-xs cursor-pointer" style={{ color: c.muted }}>
-              Upload Photo
-              <input type="file" accept="image/*" className="hidden" onChange={(e) => handlePhotoUpload(e, i)} />
-            </label>
-          )
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: c.muted }}>
-            No video
+            <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: c.muted }}>
+              No video
+            </div>
+          )}
+        </div>
+        {getVideoDesc(item) && (
+          <div className="text-xs leading-snug mt-1" style={{ color: c.muted }}>
+            {getVideoDesc(item)}
           </div>
         )}
       </div>
-      {getVideoDesc(item) && (
-        <div className="text-xs leading-snug mt-1" style={{ color: c.muted }}>
-          {getVideoDesc(item)}
-        </div>
-      )}
-    </div>
-  )
+    )
+  }
 
   return (
     <div className="space-y-6">
-      {/* TikTok/Instagram Videos - Vertical Layout */}
+      {/* TikTok/Instagram Videos - Vertical Layout with Thumbnails */}
       {tiktokIgVideos.length > 0 && (
         <div>
           <div className="text-sm font-medium mb-3" style={{ color: c.muted }}>
             TikTok & Instagram
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 " >
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3">
             {tiktokIgVideos.map((item, i) => renderVideoItem(item, `tiktok-${i}`, true))}
           </div>
         </div>
@@ -530,7 +541,7 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
         </div>
       )}
 
-      {/* YouTube Videos - Horizontal Layout at Bottom */}
+      {/* YouTube Videos - Horizontal Layout with Embeds */}
       {youtubeVideos.length > 0 && (
         <div>
           <div className="text-sm font-medium mb-3" style={{ color: c.muted }}>
@@ -543,12 +554,11 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
       )}
 
       <div className="text-[11px]" style={{ color: c.muted }}>
-        Note: YouTube links auto-embed. TikTok/Instagram may block iframes depending on browser settings.
+        Note: YouTube videos are embedded. TikTok/Instagram show thumbnails - click to open original video.
       </div>
     </div>
   )
 }
-
 // =====================
 // Stat & Info Sections
 // =====================
@@ -798,8 +808,8 @@ function EditableAnalyticsDashboard() {
                       key={b.id}
                       onClick={() => setView(b.id)}
                       className={`px-6 py-2 cursor-pointer rounded-full border ${view === b.id
-                          ? "opacity-100"
-                          : "opacity-80 hover:opacity-100"
+                        ? "opacity-100"
+                        : "opacity-80 hover:opacity-100"
                         }`}
                       style={{
                         borderColor: colors.border,
