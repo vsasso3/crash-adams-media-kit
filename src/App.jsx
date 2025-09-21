@@ -124,29 +124,29 @@ const DEFAULT_CONFIG = {
   tagVideos: {
     // FEATURED grid (replaced per user's latest list)
     featured: [
-      { title: "Lays", url: "https://www.instagram.com/reel/Cu2gKKProiB/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/lays.webp" },
+      { title: "Lays", url: "https://www.instagram.com/reel/Cu2gKKProiB/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/Lays.png" },
       { title: "Old Spice", url: "https://www.youtube.com/shorts/VdLA0SWpD8Q", description: "" },
       { title: "KFC", url: "https://drive.google.com/file/d/1-ncm5Rs9t86-6QWw06l3ERkRMl3NAsIo/view?usp=sharing", description: "" },
       { title: "Qatar Airlines", url: "https://www.instagram.com/reel/C-iJ8fmoeVn/?hl=en", description: "" , thumbnail: "./thumbnails/Qatar.png"},
       { title: "Nissan", url: "https://www.instagram.com/reel/C48O17bLphn/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/Nissan.png"},
       { title: "Dubai Tourism Board", url: "https://www.tiktok.com/@crashadamsbackup/video/7396452328678886702", description: "",  thumbnail: "./thumbnails/DubaiToursim.png"  },
-      { title: "W Hotels", url: "https://www.instagram.com/reel/DFCxRSkxy4m/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/W-hotel.png" },
+      { title: "W Hotels", url: "https://www.instagram.com/reel/DFCxRSkxy4m/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/W-hotels.png" },
       { title: "US Open", url: "https://www.instagram.com/reel/CwtYLy8vyi1/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/US-Open.png"},
       { title: "RW & Co", url: "https://www.tiktok.com/@crashadams/video/7535688521193934136?lang=en", description: "" , thumbnail: "./thumbnails/RW.png" },
       { title: "Chicago Cubs", url: "https://www.instagram.com/p/DK7s4UmyR20/?img_index=2&igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/Chicago.png" },
       { title: "HSBC", url: "https://www.youtube.com/shorts/yU87LL9GJLU", description: "" },
-      { title: "Vaughan Mills", url: "https://www.instagram.com/reel/DCBXgcixRMK/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/VAUGHAN-MILLS.png" }
+      { title: "Vaughan Mills", url: "https://www.instagram.com/reel/DCBXgcixRMK/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/Vaughan-Mills.png" }
     ],
     // LIVE MUSIC ACTIVATIONS grid
     moreFeatured: [
       { title: "New Year's Eve 2025 @ Hong Kong", url: "https://www.youtube.com/watch?v=NpDXBwPkr2w", description: "Headlined Hong Kong's official NYE celebration, reaching an estimated 39M TV viewers." },
       { title: "New Year's Eve 2025 @ Singapore", url: "https://www.youtube.com/watch?v=eKrXPyowCv0", description: "Headlined Singapore's official NYE celebration, broadcast to an estimated 5M TV viewers." },
       { title: "Dubai Tourism Music Videos", url: "https://www.youtube.com/watch?v=PS2mxYk-Tfo", description: "Partnered with Dubai Tourism to create and film two music videos in Dubai." },
-      { title: "Google Store Pop-Up @ New York", url: "https://www.instagram.com/p/CqmGci-v_t8/?img_index=6&igsh=NTc4MTIwNjQ2YQ==", description: "Surprise pop-up at the Google Store Chelsea; reached venue capacity."  , thumbnail: "./thumbnails/Google.png" },
+      { title: "Google Store Pop-Up @ New York", url: "https://www.instagram.com/p/CqmGci-v_t8/?img_index=6&igsh=NTc4MTIwNjQ2YQ==", description: "Surprise pop-up at the Google Store Chelsea; reached venue capacity."  , thumbnail: "./thumbnails/Google-Store.png" },
       { title: "AIA Carnival Secret Performance @ Hong Kong", url: "https://www.instagram.com/reel/DE1bR5Dg51c/?igsh=NTc4MTIwNjQ2YQ==", description: "Fan scavenger hunt ending in a surprise live performance."  , thumbnail: "./thumbnails/AIA.png"},
       { title: "YouTube Music Nights @ Harbour City, Hong Kong", url: "https://www.youtube.com/watch?v=lWk_yYHbFBM&t=1495s", description: "Contest with a special 30-min set overlooking the marina." },
-      { title: "Qatar Airport Flash Mob", url: "https://www.tiktok.com/@emiliopiano/video/7401954904463412513", description: "Surprise performance with Qatar Airways and Emilio Piano at DOH."  , thumbnail: "./thumbnails/Qatar.png" },
-      { title: "Canada Day Celebration @ Toronto", url: "https://www.instagram.com/reel/C9deomGPHmH/?igsh=NTc4MTIwNjQ2YQ==", description: "Headlined for 20k+ attendees."   , thumbnail: "./thumbnails/canada-day.png"} ,
+      { title: "Qatar Airport Flash Mob", url: "https://www.tiktok.com/@emiliopiano/video/7401954904463412513", description: "Surprise performance with Qatar Airways and Emilio Piano at DOH."  , thumbnail: "./thumbnails/Qatar2.png" },
+      { title: "Canada Day Celebration @ Toronto", url: "https://www.instagram.com/reel/C9deomGPHmH/?igsh=NTc4MTIwNjQ2YQ==", description: "Headlined for 20k+ attendees."   , thumbnail: "./thumbnails/Canda-day.png"} ,
       { title: "Lido Connect 'Secret Busking' @ Thailand", url: "https://www.youtube.com/watch?v=GOF3gb8Cl4Y", description: "Secret location busking-style pop-up in Bangkok." },
       { title: "TikTok Canada & Toronto Maple Leafs Parking Lot Party", url: "", description: "Headlined pre-game parking lot party for Leafs playoff home opener.", allowPhoto: true },
       { title: "San Jose Sharks Intermission Performance", url: "https://www.youtube.com/shorts/jRsVk7hMVGQ", description: "Intermission performance at Sharks home opener." },
