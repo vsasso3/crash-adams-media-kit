@@ -63,7 +63,7 @@ const PLATFORM_ORDER = ["youtube", "tiktok", "tik_tok_backup", "facebook", "inst
 const PLATFORM_LABEL = {
   youtube: "YouTube",
   tiktok: "TikTok",
-  tik_tok_backup: "Tik Tok Backup Page",
+  tik_tok_backup: "Tik Tok Backup Pages",
   facebook: "Facebook",
   instagram: "Instagram",
   snapchat: "Snapchat"
@@ -117,6 +117,7 @@ const DEFAULT_CONFIG = {
     views: "Views",
     likes: "Likes",
     comments: "Comments",
+    averageStoryViews: "Average Story Views",
     gender: "Gender",
     ageGender: "Age and Gender",
     topCountries: "Top Countries",
@@ -125,28 +126,28 @@ const DEFAULT_CONFIG = {
     // FEATURED grid (replaced per user's latest list)
     featured: [
       { title: "Lays", url: "https://www.instagram.com/reel/Cu2gKKProiB/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/Lays.png" },
-      { title: "Old Spice", url: "https://www.youtube.com/shorts/VdLA0SWpD8Q", description: "" },
+      { title: "Old Spice", url: "https://www.youtube.com/shorts/VdLA0SWpD8Q", description: "", thumbnail: "./thumbnails/OldSpice.jpg" },
       { title: "KFC", url: "https://drive.google.com/file/d/1-ncm5Rs9t86-6QWw06l3ERkRMl3NAsIo/view?usp=sharing", description: "" },
-      { title: "Qatar Airlines", url: "https://www.instagram.com/reel/C-iJ8fmoeVn/?hl=en", description: "" , thumbnail: "./thumbnails/Qatar.png"},
-      { title: "Nissan", url: "https://www.instagram.com/reel/C48O17bLphn/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/Nissan.png"},
-      { title: "Dubai Tourism Board", url: "https://www.tiktok.com/@crashadamsbackup/video/7396452328678886702", description: "",  thumbnail: "./thumbnails/DubaiToursim.png"  },
-      { title: "W Hotels", url: "https://www.instagram.com/reel/DFCxRSkxy4m/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/W-hotels.png" },
-      { title: "US Open", url: "https://www.instagram.com/reel/CwtYLy8vyi1/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/US-Open.png"},
-      { title: "RW & Co", url: "https://www.tiktok.com/@crashadams/video/7535688521193934136?lang=en", description: "" , thumbnail: "./thumbnails/RW.png" },
-      { title: "Chicago Cubs", url: "https://www.instagram.com/p/DK7s4UmyR20/?img_index=2&igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/Chicago.png" },
-      { title: "HSBC", url: "https://www.youtube.com/shorts/yU87LL9GJLU", description: "" },
-      { title: "Vaughan Mills", url: "https://www.instagram.com/reel/DCBXgcixRMK/?igsh=NTc4MTIwNjQ2YQ==", description: "" , thumbnail: "./thumbnails/VaughanMills.png" }
+      { title: "Qatar Airlines", url: "https://www.instagram.com/reel/C-iJ8fmoeVn/?hl=en", description: "", thumbnail: "./thumbnails/Qatar.png" },
+      { title: "Nissan", url: "https://www.instagram.com/reel/C48O17bLphn/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/Nissan.png" },
+      { title: "Dubai Tourism Board", url: "https://www.tiktok.com/@crashadamsbackup/video/7396452328678886702", description: "", thumbnail: "./thumbnails/DubaiToursim.png" },
+      { title: "W Hotels", url: "https://www.instagram.com/reel/DFCxRSkxy4m/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/W-hotels.png" },
+      { title: "US Open", url: "https://www.instagram.com/reel/CwtYLy8vyi1/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/US-Open.png" },
+      { title: "RW & Co", url: "https://www.tiktok.com/@crashadams/video/7535688521193934136?lang=en", description: "", thumbnail: "./thumbnails/RW.png" },
+      { title: "Chicago Cubs", url: "https://www.instagram.com/p/DK7s4UmyR20/?img_index=2&igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/Chicago.png" },
+      { title: "HSBC", url: "https://www.youtube.com/shorts/yU87LL9GJLU", description: "", thumbnail: "./thumbnails/HSBC.jpg" },
+      { title: "Vaughan Mills", url: "https://www.instagram.com/reel/DCBXgcixRMK/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/VaughanMills.png" }
     ],
     // LIVE MUSIC ACTIVATIONS grid
     moreFeatured: [
       { title: "New Year's Eve 2025 @ Hong Kong", url: "https://www.youtube.com/watch?v=NpDXBwPkr2w", description: "Headlined Hong Kong's official NYE celebration, reaching an estimated 39M TV viewers." },
       { title: "New Year's Eve 2025 @ Singapore", url: "https://www.youtube.com/watch?v=eKrXPyowCv0", description: "Headlined Singapore's official NYE celebration, broadcast to an estimated 5M TV viewers." },
       { title: "Dubai Tourism Music Videos", url: "https://www.youtube.com/watch?v=PS2mxYk-Tfo", description: "Partnered with Dubai Tourism to create and film two music videos in Dubai." },
-      { title: "Google Store Pop-Up @ New York", url: "https://www.instagram.com/p/CqmGci-v_t8/?img_index=6&igsh=NTc4MTIwNjQ2YQ==", description: "Surprise pop-up at the Google Store Chelsea; reached venue capacity."  , thumbnail: "./thumbnails/Google-Store.png" },
-      { title: "AIA Carnival Secret Performance @ Hong Kong", url: "https://www.instagram.com/reel/DE1bR5Dg51c/?igsh=NTc4MTIwNjQ2YQ==", description: "Fan scavenger hunt ending in a surprise live performance."  , thumbnail: "./thumbnails/AIA.png"},
+      { title: "Google Store Pop-Up @ New York", url: "https://www.instagram.com/p/CqmGci-v_t8/?img_index=6&igsh=NTc4MTIwNjQ2YQ==", description: "Surprise pop-up at the Google Store Chelsea; reached venue capacity.", thumbnail: "./thumbnails/Google-Store.png" },
+      { title: "AIA Carnival Secret Performance @ Hong Kong", url: "https://www.instagram.com/reel/DE1bR5Dg51c/?igsh=NTc4MTIwNjQ2YQ==", description: "Fan scavenger hunt ending in a surprise live performance.", thumbnail: "./thumbnails/AIA.png" },
       { title: "YouTube Music Nights @ Harbour City, Hong Kong", url: "https://www.youtube.com/watch?v=lWk_yYHbFBM&t=1495s", description: "Contest with a special 30-min set overlooking the marina." },
-      { title: "Qatar Airport Flash Mob", url: "https://www.tiktok.com/@emiliopiano/video/7401954904463412513", description: "Surprise performance with Qatar Airways and Emilio Piano at DOH."  , thumbnail: "./thumbnails/Qatar2.png" },
-      { title: "Canada Day Celebration @ Toronto", url: "https://www.instagram.com/reel/C9deomGPHmH/?igsh=NTc4MTIwNjQ2YQ==", description: "Headlined for 20k+ attendees."   , thumbnail: "./thumbnails/Canda-day.png"} ,
+      { title: "Qatar Airport Flash Mob", url: "https://www.tiktok.com/@emiliopiano/video/7401954904463412513", description: "Surprise performance with Qatar Airways and Emilio Piano at DOH.", thumbnail: "./thumbnails/Qatar2.png" },
+      { title: "Canada Day Celebration @ Toronto", url: "https://www.instagram.com/reel/C9deomGPHmH/?igsh=NTc4MTIwNjQ2YQ==", description: "Headlined for 20k+ attendees.", thumbnail: "./thumbnails/Canda-day.png" },
       { title: "Lido Connect 'Secret Busking' @ Thailand", url: "https://www.youtube.com/watch?v=GOF3gb8Cl4Y", description: "Secret location busking-style pop-up in Bangkok." },
       { title: "TikTok Canada & Toronto Maple Leafs Parking Lot Party", url: "", description: "Headlined pre-game parking lot party for Leafs playoff home opener.", allowPhoto: true },
       { title: "San Jose Sharks Intermission Performance", url: "https://www.youtube.com/shorts/jRsVk7hMVGQ", description: "Intermission performance at Sharks home opener." },
@@ -189,7 +190,7 @@ behind-the-scenes of their journey`,
       { name: "TD Bank", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/TD_Bank.svg/2560px-TD_Bank.svg.png" },
       { name: "Nissan", img: "https://upload.wikimedia.org/wikipedia/commons/2/23/Nissan_2020_logo.svg" },
       { name: "W Hotels", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/W_Hotels_Logo.svg/2426px-W_Hotels_Logo.svg.png" },
-      { name: "The Standard Hotels", img: "https://static1.squarespace.com/static/595ae4d7b11be1e84976a6ba/t/6599f3ef4c5478429ebd9c2b/1757500285650/" },
+      { name: "The Standard Hotels", img: "./TheStandard.jpg" },
       { name: "Doc Martens", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Dr._Martens_Logo.svg/2560px-Dr._Martens_Logo.svg.png" },
       { name: "Miller Genuine Draft", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9Y0YbpJOZBhgdJyJNwnXCMlk7JMVehGnQcw&s" },
       { name: "Harry Rosen", img: "https://upload.wikimedia.org/wikipedia/commons/6/64/HRI_Logo.jpg" },
@@ -204,7 +205,7 @@ behind-the-scenes of their journey`,
   press: {
     title: "NOTABLE PRESS:",
     articles: [
-      { title: "NBC", url: "https://www.nbc.com/nbc-insider/all-about-crash-adams-agt", img: "./NBC.jpg" },
+      { title: " NBC: America’s Got Talent", url: "https://www.nbc.com/nbc-insider/all-about-crash-adams-agt", img: "./NBC.jpg" },
       { title: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/shakira-olivia-rodrigo-future-metro-boomin-songs-you-need-to-know-1234992889/", img: "./ROLLING-STONE.jpeg" },
       { title: "Sirius XM Hits 1", url: "https://www.youtube.com/watch?v=U7aM5iBp5co", img: "./SIRIUS-XM.jpg" },
       { title: "Billboard", url: "https://ca.billboard.com/music/pop/new-and-upcoming-canadian-releases-crash-adams-sum-41-good-kid-more", img: "./BILLBOARD.webp" },
@@ -271,7 +272,7 @@ const crashAdamNetworkCountries = () => ([
   { name: "Nigeria", value: 2.59 },
 ]);
 
-const instagramStats = () => ({ followers: 3400000, engagementRate: 13, totalImpressions: 62000000, shares: 401000, views: 203000000, likes: 7500000, comments: 125000 });
+const instagramStats = () => ({ followers: 3400000, engagementRate: 13, totalImpressions: 62000000, shares: 401000, views: 203000000, likes: 7500000, comments: 125000, averageStoryViews: 80000 });
 const instagramGender = () => ({ male: 67.3, female: 32.7 });
 const instagramAges = () => ([
   { range: "18–24", value: 20.6 },
@@ -336,7 +337,8 @@ const ensurePlatformShape = (p) => ({
     shares: p?.stats?.shares == null ? null : safeNum(p?.stats?.shares, 0),
     views: safeNum(p?.stats?.views, 0),
     likes: p?.stats?.likes == null ? null : safeNum(p?.stats?.likes, 0),
-    comments: p?.stats?.comments == null ? null : safeNum(p?.stats?.comments, 0)
+    comments: p?.stats?.comments == null ? null : safeNum(p?.stats?.comments, 0),
+    averageStoryViews: p?.stats?.averageStoryViews == null ? null : safeNum(p?.stats?.averageStoryViews, 0)
   },
   gender: { male: clamp(safeNum(p?.gender?.male, 0), 0, 100), female: clamp(safeNum(p?.gender?.female, 0), 0, 100) },
   ages: Array.isArray(p?.ages) && p.ages.length
@@ -448,7 +450,7 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
           {item.title || "Featured"}
         </div>
         <div
-          className={`w-full ${isVertical ? "h-80" : "h-40"} rounded-md overflow-hidden border flex items-center justify-center relative group cursor-pointer`}
+          className={`w-full ${isVertical ? "h-80" : "h-40 md:h-60"} rounded-md overflow-hidden border flex items-center justify-center relative group cursor-pointer`}
           style={{ borderColor: c.border, background: c._cardBg }}
           onClick={() => {
             if (item.url) {
@@ -487,8 +489,10 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
                     {item.url.includes("tiktok.com") ? "TikTok" : "Instagram"}
                   </div>
                 </div>
-              ) : isYT ? (
+              ) : 
+              isYT ? (
                 // Keep YouTube embeds as before
+                
                 <iframe
                   title={`video-${i}`}
                   src={toEmbed(item.url)}
@@ -496,7 +500,7 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
                   sandbox="allow-scripts allow-same-origin allow-presentation"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  style={{ border: "none" }}
+                  style={{ border: "none", }}
                 />
               ) : (
                 // Fallback for other video types
@@ -761,34 +765,7 @@ function EditableAnalyticsDashboard() {
                     Add
                   </div>
                 )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e?.target?.files?.[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                      const dataUrl = String(reader.result || "");
-                      setProfile((prev) => ({ ...prev, photo: dataUrl }));
-                      try {
-                        const saved =
-                          typeof window !== "undefined"
-                            ? window.localStorage.getItem(STORAGE_KEY)
-                            : null;
-                        const cfg = saved ? JSON.parse(saved) : {};
-                        cfg.profile = { ...(cfg.profile || {}), photo: dataUrl };
-                        if (typeof window !== "undefined")
-                          window.localStorage.setItem(
-                            STORAGE_KEY,
-                            JSON.stringify(cfg)
-                          );
-                      } catch { }
-                    };
-                    reader.readAsDataURL(file);
-                  }}
-                  className="absolute inset-0 opacity-0 cursor-pointer"
-                />
+
               </div>
 
               {/* Info section */}
@@ -958,6 +935,11 @@ function EditableAnalyticsDashboard() {
             <div className="grid gap-4 md:grid-cols-3">
               <StatCard colors={colors} label={labels.comments} value={active.stats.comments} />
 
+              {platform === 'instagram' && (
+                <StatCard colors={colors} label={labels.averageStoryViews} value={active.stats.averageStoryViews} />
+
+              )
+              }
               {/* Gender Pie */}
               <Card className="rounded-2xl shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
                 <CardContent>
@@ -1033,14 +1015,13 @@ function EditableAnalyticsDashboard() {
                 <p className="text-base leading-6" style={{ color: colors.text }}>
                   Crash Adams is a Toronto-based pop duo made up of childhood friends Rafaele "Crash"
                   Massarelli and Vince "Adams" Sasso. They've built a dedicated fanbase and launched a
-                  successful music career by leveraging their ability to go insanely viral through fun and authentic
-                  content.Their music is an infectious blend of pop and pop-rock, defined by catchy hooks and
-                  feel-good, cinematic storytelling. <br />
+                  successful career by pairing their feel good pop rock music with their ability to go
+                  insanely viral through content that puts a smile on peoples faces.  <br />
                   <br />
-                  In 2025/26, they’ll expand their viral short-form series while taking fans on the road—sharing
-                  concert footage, press moments, tour life, and the process of creating music and videos.
-                  Rafaele and Vince bring fans closer by showing both the highs of performing and the
-                  behind-the-scenes of their journey
+                  In 2025/26, they’ll expand their viral short-form series while taking fans on the road by
+                  sharing concert footage, press moments, tour life, and the process of creating music
+                  and videos. Rafaele and Vince will bring fans closer by showing both the highs of their
+                  life as performers and the behind-the-scenes of their journey
                 </p>
                 <br />
                 {/* Partnership Opportunities */}
