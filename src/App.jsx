@@ -126,7 +126,7 @@ const DEFAULT_CONFIG = {
     // FEATURED grid (replaced per user's latest list)
     featured: [
       { title: "Lays", url: "https://www.instagram.com/reel/Cu2gKKProiB/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/Lays.png" },
-      { title: "Old Spice", url: "https://www.youtube.com/shorts/VdLA0SWpD8Q", description: "", thumbnail: "./thumbnails/OldSpice.jpg" },
+      { title: "Old Spice", url: "https://www.instagram.com/reel/CqtUyPWgJ0C/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/OldSpice.jpg" },
       { title: "KFC", url: "https://drive.google.com/file/d/1-ncm5Rs9t86-6QWw06l3ERkRMl3NAsIo/view?usp=sharing", description: "" },
       { title: "Qatar Airlines", url: "https://www.instagram.com/reel/C-iJ8fmoeVn/?hl=en", description: "", thumbnail: "./thumbnails/Qatar.png" },
       { title: "Nissan", url: "https://www.instagram.com/reel/C48O17bLphn/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/Nissan.png" },
@@ -135,8 +135,10 @@ const DEFAULT_CONFIG = {
       { title: "US Open", url: "https://www.instagram.com/reel/CwtYLy8vyi1/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/US-Open.png" },
       { title: "RW & Co", url: "https://www.tiktok.com/@crashadams/video/7535688521193934136?lang=en", description: "", thumbnail: "./thumbnails/RW.png" },
       { title: "Chicago Cubs", url: "https://www.instagram.com/p/DK7s4UmyR20/?img_index=2&igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/Chicago.png" },
-      { title: "HSBC", url: "https://www.youtube.com/shorts/yU87LL9GJLU", description: "", thumbnail: "./thumbnails/HSBC.jpg" },
-      { title: "Vaughan Mills", url: "https://www.instagram.com/reel/DCBXgcixRMK/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/VaughanMills.png" }
+      { title: "HSBC", url: "https://www.tiktok.com/t/ZP8SqQHou/", description: "", thumbnail: "./thumbnails/HSBC.jpg" },
+      { title: "Vaughan Mills", url: "https://www.instagram.com/reel/DCBXgcixRMK/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/VaughanMills.png" },
+      { title: "Meta", url: "https://www.instagram.com/reel/C1_SSnuAOJH/?igsh=NTc4MTIwNjQ2YQ==", description: "", thumbnail: "./thumbnails/Meta.jpg" }
+
     ],
     // LIVE MUSIC ACTIVATIONS grid
     moreFeatured: [
@@ -152,7 +154,9 @@ const DEFAULT_CONFIG = {
       { title: "TikTok Canada & Toronto Maple Leafs Parking Lot Party", url: "", description: "Headlined pre-game parking lot party for Leafs playoff home opener.", allowPhoto: true },
       { title: "San Jose Sharks Intermission Performance", url: "https://www.youtube.com/shorts/jRsVk7hMVGQ", description: "Intermission performance at Sharks home opener." },
       // Ensure Rixos renders beside the Sharks card in the grid
-      { title: "Rixos Hotels - Hotel Party Music Video", url: "https://www.youtube.com/watch?v=ku1zZfNbTNk", description: "Partnered with Dubai Tourism to create and film two music videos in Dubai." }
+      { title: "Rixos Hotels - Hotel Party Music Video", url: "https://www.youtube.com/watch?v=ku1zZfNbTNk", description: "Partnered with Dubai Tourism to create and film two music videos in Dubai." },
+      { title: "NBC: America’s Got Talent", url: "https://www.youtube.com/watch?v=YcTLzmOCQnI", description: "" }
+
     ]
   },
   bioText: `Crash Adams is a Toronto-based pop duo made up of childhood friends Rafaele "Crash"
@@ -190,7 +194,7 @@ behind-the-scenes of their journey`,
       { name: "TD Bank", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/TD_Bank.svg/2560px-TD_Bank.svg.png" },
       { name: "Nissan", img: "https://upload.wikimedia.org/wikipedia/commons/2/23/Nissan_2020_logo.svg" },
       { name: "W Hotels", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/W_Hotels_Logo.svg/2426px-W_Hotels_Logo.svg.png" },
-      { name: "The Standard Hotels", img: "./TheStandard.jpg" },
+      { name: "The Standard Hotels", img: "./The_Standard_logo.webp" },
       { name: "Doc Martens", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Dr._Martens_Logo.svg/2560px-Dr._Martens_Logo.svg.png" },
       { name: "Miller Genuine Draft", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9Y0YbpJOZBhgdJyJNwnXCMlk7JMVehGnQcw&s" },
       { name: "Harry Rosen", img: "https://upload.wikimedia.org/wikipedia/commons/6/64/HRI_Logo.jpg" },
@@ -447,8 +451,21 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
           className={`text-[16px] line-clamp-1 ${itemTitleBold ? "font-semibold" : ""}`}
           style={{ color: itemTitleColor ?? c.muted }}
         >
-          {item.title || "Featured"}
+          {isYT ? (
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline cursor-pointer"
+              style={{ color: itemTitleColor ?? c.muted }}
+            >
+              {item.title || "Featured"}
+            </a>
+          ) : (
+            item.title || "Featured"
+          )}
         </div>
+
         <div
           className={`w-full ${isVertical ? "h-80" : "h-40 md:h-60"} rounded-md overflow-hidden border flex items-center justify-center relative group cursor-pointer`}
           style={{ borderColor: c.border, background: c._cardBg }}
@@ -489,25 +506,25 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
                     {item.url.includes("tiktok.com") ? "TikTok" : "Instagram"}
                   </div>
                 </div>
-              ) : 
-              isYT ? (
-                // Keep YouTube embeds as before
-                
-                <iframe
-                  title={`video-${i}`}
-                  src={toEmbed(item.url)}
-                  className="w-full h-full"
-                  sandbox="allow-scripts allow-same-origin allow-presentation"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{ border: "none", }}
-                />
-              ) : (
-                // Fallback for other video types
-                <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: c.muted }}>
-                  Video not supported
-                </div>
-              )}
+              ) :
+                isYT ? (
+                  // Keep YouTube embeds as before
+
+                  <iframe
+                    title={`video-${i}`}
+                    src={toEmbed(item.url)}
+                    className="w-full h-full"
+                    sandbox="allow-scripts allow-same-origin allow-presentation"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ border: "none", }}
+                  />
+                ) : (
+                  // Fallback for other video types
+                  <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: c.muted }}>
+                    Video not supported
+                  </div>
+                )}
             </>
           ) : (
             <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: c.muted }}>
@@ -834,7 +851,7 @@ function EditableAnalyticsDashboard() {
                         href="mailto:crashadamsmusic@crashadamsmusic.com"
                         className="font-medium hover:underline text-xs sm:text-sm"
                       >
-                        Contact Us : crashadamsmusic@.com
+                        Contact Us : crashadamsmusic@crashadamsmusic.com
                       </a>
                     </div>
 
@@ -903,7 +920,7 @@ function EditableAnalyticsDashboard() {
             {/* FEATURED VIDEOS */}
             <Card className="rounded-2xl shadow-md mt-0" id="brands" style={{ background: colors._cardBg, borderColor: colors.border }}>
               <CardContent>
-                <div className="text-xs uppercase tracking-widest mb-3 font-bold" style={{ color: colors.text }}>
+                <div className="text-xl uppercase tracking-widest mb-3 font-bold" style={{ color: colors.text }}>
                   Notable Campaigns
                 </div>
                 <VideoGallery links={tagVideos.featured} colors={colors} itemTitleBold itemTitleColor={colors.text} />
@@ -913,7 +930,7 @@ function EditableAnalyticsDashboard() {
             {/* LIVE MUSIC ACTIVATIONS */}
             <Card className="rounded-2xl shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
               <CardContent>
-                <div className="text-xs uppercase tracking-widest mb-3 font-bold" style={{ color: colors.text }}>
+                <div className="text-xl uppercase tracking-widest mb-3 font-bold" style={{ color: colors.text }}>
                   LIVE MUSIC ACTIVATIONS
                 </div>
                 <VideoGallery links={tagVideos.moreFeatured} colors={colors} itemTitleBold itemTitleColor={colors.text} />
