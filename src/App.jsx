@@ -662,20 +662,9 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
           className={`text-[16px] line-clamp-1 ${itemTitleBold ? "font-semibold" : ""}`}
           style={{ color: itemTitleColor ?? c.muted }}
         >
-          {isYT ? (
-            <a
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline cursor-pointer"
-              style={{ color: itemTitleColor ?? c.muted }}
-            >
-              {item.title || "Featured"}
-            </a>
-          ) : (
-            item.title || "Featured"
-          )}
+          {isYT ? (item.title || "Featured") : "Featured"}
         </div>
+
 
         <div
           className={`w-full ${isVertical ? "h-80" : "h-40 md:h-60"} rounded-md overflow-hidden border flex items-center justify-center relative group cursor-pointer`}
@@ -710,15 +699,27 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
                   </div>
                 </div>
               ) : isYT ? (
-                <iframe
-                  title={`video-${i}`}
-                  src={toEmbed(item.url)}
-                  className="w-full h-full"
-                  sandbox="allow-scripts allow-same-origin allow-presentation"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{ border: "none" }}
-                />
+                <div className="relative w-full h-full">
+                  <iframe
+                    title={`video-${i}`}
+                    src={toEmbed(item.url)}
+                    className="w-full h-full"
+                    sandbox="allow-scripts allow-same-origin allow-presentation"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ border: "none" }}
+                  />
+
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 z-10"
+                  >
+                    <span className="sr-only">Watch on YouTube</span>
+                  </a>
+                </div>
+
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-xs" style={{ color: c.muted }}>
                   Video not supported
@@ -986,7 +987,7 @@ function EditableAnalyticsDashboard() {
         setProfile((p) => ({ ...p, photo: cfg?.profile?.photo || p.photo }))
         if (cfg?.tagVideos) setTagVideos((prev) => ({ ...prev, ...cfg.tagVideos }))
       }
-    } catch {}
+    } catch { }
   }, [])
 
   const palette = useMemo(() => ["#A78BFA", "#7C3AED", "#6D28D9", "#4C1D95", "#C4B5FD"], [])
@@ -1095,9 +1096,8 @@ function EditableAnalyticsDashboard() {
                           if (view !== b.id) setView(b.id)
                         }
                       }}
-                      className={`px-6 py-2 cursor-pointer rounded-full border inline-flex items-center gap-1.5 ${
-                        view === b.id ? "opacity-100" : "opacity-80 hover:opacity-100"
-                      }`}
+                      className={`px-6 py-2 cursor-pointer rounded-full border inline-flex items-center gap-1.5 ${view === b.id ? "opacity-100" : "opacity-80 hover:opacity-100"
+                        }`}
                       style={{
                         borderColor: colors.border,
                         background: view === b.id ? colors.secondary : "transparent",
@@ -1130,17 +1130,17 @@ function EditableAnalyticsDashboard() {
                   {/* Contact + Socials */}
                   <div className="flex flex-col sm:items-end gap-3">
                     <div className="flex items-center gap-2 bg-customYellow text-customBrown px-4 py-1 rounded-full shadow-sm w-full sm:w-fit mx-auto sm:mx-0">
-  <MdEmail className="text-[18px] shrink-0" />
-  <p className="text-xs sm:text-sm font-medium truncate">
-    Contact Us :{" "}
-    <a
-      href="mailto:crashadamsmusic@crashadamsmusic.com"
-      className="hover:underline break-all"
-    >
-      crashadamsmusic@crashadamsmusic.com
-    </a>
-  </p>
-</div>
+                      <MdEmail className="text-[18px] shrink-0" />
+                      <p className="text-xs sm:text-sm font-medium truncate">
+                        Contact Us :{" "}
+                        <a
+                          href="mailto:crashadamsmusic@crashadamsmusic.com"
+                          className="hover:underline break-all"
+                        >
+                          crashadamsmusic@crashadamsmusic.com
+                        </a>
+                      </p>
+                    </div>
 
 
                     <div className="flex flex-wrap justify-center sm:justify-end gap-4">
@@ -1186,9 +1186,8 @@ function EditableAnalyticsDashboard() {
                       if (platform !== p) setPlatform(p)
                     }
                   }}
-                  className={`px-2 md:px-4 py-1 md:py-2 cursor-pointer rounded-md border inline-flex items-center gap-1.5 ${
-                    platform === p ? "opacity-100" : "opacity-80 hover:opacity-100"
-                  }`}
+                  className={`px-2 md:px-4 py-1 md:py-2 cursor-pointer rounded-md border inline-flex items-center gap-1.5 ${platform === p ? "opacity-100" : "opacity-80 hover:opacity-100"
+                    }`}
                   style={{
                     borderColor: colors.border,
                     background: platform === p ? colors.secondary : "transparent",
