@@ -1039,7 +1039,7 @@ function EditableAnalyticsDashboard() {
     >
       <div className="max-w-[1100px] mx-auto space-y-5">
         {/* Header */}
-        <Card className="overflow-hidden shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
+        <Card className="overflow-hidden  shadow-md" style={{ background: colors._cardBg, borderColor: colors.border }}>
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
               {/* Avatar */}
@@ -1129,15 +1129,19 @@ function EditableAnalyticsDashboard() {
 
                   {/* Contact + Socials */}
                   <div className="flex flex-col sm:items-end gap-3">
-                    <div className="flex items-center gap-2 bg-customYellow text-customBrown px-4 py-1 rounded-full shadow-sm w-fit mx-auto sm:mx-0">
-                      <MdEmail className="text-[18px]" />
-                      <a
-                        href="mailto:crashadamsmusic@crashadamsmusic.com"
-                        className="font-medium hover:underline text-xs sm:text-sm"
-                      >
-                        Contact Us : crashadamsmusic@crashadamsmusic.com
-                      </a>
-                    </div>
+                    <div className="flex items-center gap-2 bg-customYellow text-customBrown px-4 py-1 rounded-full shadow-sm w-full sm:w-fit mx-auto sm:mx-0">
+  <MdEmail className="text-[18px] shrink-0" />
+  <p className="text-xs sm:text-sm font-medium truncate">
+    Contact Us :{" "}
+    <a
+      href="mailto:crashadamsmusic@crashadamsmusic.com"
+      className="hover:underline break-all"
+    >
+      crashadamsmusic@crashadamsmusic.com
+    </a>
+  </p>
+</div>
+
 
                     <div className="flex flex-wrap justify-center sm:justify-end gap-4">
                       {PLATFORM_ORDER.filter((p) => p !== "tik_tok_backup").map((p) => (
