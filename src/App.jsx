@@ -490,7 +490,6 @@ const instagramAges = () => [
 const instagramCountries = () => [
   { name: "United States", value: 15.8 },
   { name: "Indonesia", value: 9.8 },
-  { name: "Unknown", value: 9.1 },
   { name: "India", value: 4.8 },
   { name: "Brazil", value: 3.2 },
   { name: "Malaysia", value: 2.0 },
