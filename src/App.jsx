@@ -438,7 +438,6 @@ const tiktokAges = () => [
 const tiktokCountries = () => [
   { name: "United States", value: 12.9 },
   { name: "Other", value: 8.6 },
-  { name: "Unknown", value: 3.1 },
   { name: "United Kingdom", value: 2.7 },
   { name: "Canada", value: 2.2 },
   { name: "Brazil", value: 2.0 },
@@ -463,8 +462,8 @@ const crashAdamNetworkAges = () => [
   { range: "55+", value: 5.88 },
 ]
 const crashAdamNetworkCountries = () => [
-  { name: "United States", value: 9.16 },
   { name: "Other", value: 60.54 },
+  { name: "United States", value: 9.16 },
   { name: "Philippines", value: 6.35 },
   { name: "South Africa", value: 4.51 },
   { name: "Nigeria", value: 2.59 },
