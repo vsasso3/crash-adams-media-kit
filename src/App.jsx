@@ -343,7 +343,7 @@ const DEFAULT_CONFIG = {
         name: "Miller Genuine Draft",
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9Y0YbpJOZBhgdJyJNwnXCMlk7JMVehGnQcw&s",
       },
-      { name: "Harry Rosen", img: "https://upload.wikimedia.org/wikipedia/commons/6/64/HRI_Logo.jpg" },
+      { name: "Harry Rosen", img: "./HareyRosen.png" },
       {
         name: "RW & Co",
         img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMmAZKcAEEwYRSvDNHjFIjPHH_uUNmDhV54g&s",
