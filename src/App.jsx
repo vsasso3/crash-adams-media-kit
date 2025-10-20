@@ -1371,7 +1371,7 @@ function EditableAnalyticsDashboard() {
                   Mission:
                 </h2>
                 <p className="text-base leading-6" style={{ color: colors.text }}>
-                  Crash Adams is a Toronto-based pop duo made up of childhood friends Rafaele "Crash" Massarelli and
+                  Crash Adams is a Toronto born, LA based duo made up of childhood friends Rafaele "Crash" Massarelli and
                   Vince "Adams" Sasso. They've built a dedicated fanbase and launched a successful career by pairing
                   their feel good pop rock music with their ability to go insanely viral through content that puts a
                   smile on peoples faces. <br />
