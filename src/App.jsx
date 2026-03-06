@@ -1371,15 +1371,13 @@ function EditableAnalyticsDashboard() {
                   Mission:
                 </h2>
                 <p className="text-base leading-6" style={{ color: colors.text }}>
-                  Crash Adams is a Toronto born, LA based duo made up of childhood friends Rafaele "Crash" Massarelli and
-                  Vince "Adams" Sasso. They've built a dedicated fanbase and launched a successful career by pairing
-                  their feel good pop rock music with their ability to go insanely viral through content that puts a
-                  smile on peoples faces. <br />
+                  Crash Adams is a Toronto-born, LA-based duo made up of childhood friends Rafaele “Crash” Massarelli and Vince “Adams” Sasso. Their goal is simple: use music, content, and real connection to make people feel good. <br />
                   <br />
-                  In 2025/26, they’ll expand their viral short-form series while taking fans on the road by sharing
-                  concert footage, press moments, tour life, and the process of creating music and videos. Rafaele and
-                  Vince will bring fans closer by showing both the highs of their life as performers and the
-                  behind-the-scenes of their journey
+                  Combining feel-good pop rock with digital storytelling, Crash Adams has built a global audience by creating moments that make people smile and stay engaged. Their “Can You Rap?” series has grown from spontaneous street content into a multi-billion-view platform that highlights emerging artists and gives new talent real exposure. They have created a fan-driven ecosystem that fuels not just their growth, but the growth of their artist peers as well.
+                  <br />
+                  <br />
+                  Through 2026, they plan to release more music and expand their short-form content, including Can You Rap?, while bringing fans behind the scenes of touring, live shows, and the creative process. Crash Adams is focused on building a body of work and a community people can grow with over time.
+
                 </p>
                 <br />
                 {/* Partnership Opportunities */}
