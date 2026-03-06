@@ -210,11 +210,8 @@ const DEFAULT_CONFIG = {
         url: "https://www.youtube.com/watch?v=NpDXBwPkr2w",
         description: "Headlined Hong Kong's official NYE celebration, reaching an estimated 39M TV viewers.",
       },
-      {
-        title: "New Year's Eve 2025 @ Singapore",
-        url: "https://www.youtube.com/watch?v=eKrXPyowCv0",
-        description: "Headlined Singapore's official NYE celebration, broadcast to an estimated 5M TV viewers.",
-      },
+            { title: "NBC: America’s Got Talent", url: "https://www.youtube.com/watch?v=YcTLzmOCQnI", description: "" },
+
       {
         title: "Dubai Tourism Music Videos",
         url: "https://www.youtube.com/watch?v=PS2mxYk-Tfo",
@@ -270,7 +267,12 @@ const DEFAULT_CONFIG = {
         url: "https://www.youtube.com/watch?v=ku1zZfNbTNk",
         description: "Partnered with Dubai Tourism to create and film two music videos in Dubai.",
       },
-      { title: "NBC: America’s Got Talent", url: "https://www.youtube.com/watch?v=YcTLzmOCQnI", description: "" },
+            {
+        title: "New Years Eve 2024 @ Singapore",
+        url: "https://www.youtube.com/watch?v=UstphUMqDoU",
+        description: "Headlined Singapore's official NYE celebration, broadcast to an estimated 5M TV viewers.",
+      },
+
     ],
   },
   bioText: `Crash Adams is a Toronto-based pop duo made up of childhood friends Rafaele "Crash"Massarelli and Vince "Adams" Sasso. They've built a dedicated fanbase and launched asuccessful music career by leveraging their ability to go insanely viral through fun and authenticcontent.Their music is an infectious blend of pop and pop-rock, defined by catchy hooks andfeel-good, cinematic storytelling. In 2025/26, they’ll expand their viral short-form series while taking fans on the road—sharingconcert footage, press moments, tour life, and the process of creating music and videos.Rafaele and Vince bring fans closer by showing both the highs of performing and thebehind-the-scenes of their journey`,
@@ -660,8 +662,9 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
           className={`text-[16px] line-clamp-1 ${itemTitleBold ? "font-semibold" : ""}`}
           style={{ color: itemTitleColor ?? c.muted }}
         >
-          {isYT ? (item.title || "Featured") : "Featured"}
-        </div>
+        {item.title}     
+          
+          </div>
 
 
         <div
