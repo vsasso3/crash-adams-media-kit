@@ -9,14 +9,17 @@ import { MdEmail } from "react-icons/md"
 // =====================
 // Dashboard Shell
 // =====================
-function DashboardShell({ children }) {
+function DashboardShell({ children, isLoading = false }) {
   return (
     <div className="min-h-screen">
       <main className="bg-gray-50/60">
         <header className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b">
           <div className="max-w-[1200px] mx-auto px-4 py-3 flex items-center justify-between">
             <div className="font-semibold">Crash Adams – Media Kit</div>
-            <div className="text-xs text-gray-500">Editable React dashboard</div>
+            <div className="text-xs text-gray-500 flex items-center gap-2">
+              {isLoading && <span className="animate-spin">⟳</span>}
+              <span>{isLoading ? "Loading data..." : "Editable React dashboard"}</span>
+            </div>
           </div>
         </header>
         <div className="mx-auto px-4 py-6">{children}</div>
@@ -90,7 +93,37 @@ const PLATFORM_LINKS = {
 }
 
 const STORAGE_KEY = "creator_analytics_v1"
+const SHEETDB_BASE = "https://sheetdb.io/api/v1/mmgeqfh42js03"
 
+async function loadAllAnalytics() {
+  const [statsRes, genderRes, agesRes, countriesRes] = await Promise.all([
+    fetch(`${SHEETDB_BASE}?sheet=stats`).then(r => r.json()),
+    fetch(`${SHEETDB_BASE}?sheet=gender`).then(r => r.json()),
+    fetch(`${SHEETDB_BASE}?sheet=ages`).then(r => r.json()),
+    fetch(`${SHEETDB_BASE}?sheet=countries`).then(r => r.json()),
+  ])
+  const result = {}
+  statsRes.forEach(row => {
+    result[row.platform] = {
+      username: "@crashadams", avatar: "",
+      stats: {
+        followers: Number(row.followers) || 0,
+        engagementRate: row.engagementRate === "" ? null : Number(row.engagementRate),
+        totalImpressions: Number(row.totalImpressions) || 0,
+        shares: row.shares === "" ? null : Number(row.shares),
+        views: Number(row.views) || 0,
+        likes: row.likes === "" ? null : Number(row.likes),
+        comments: row.comments === "" ? null : Number(row.comments),
+        averageStoryViews: row.averageStoryViews === "" ? null : Number(row.averageStoryViews),
+      },
+      gender: { male: 0, female: 0 }, ages: [], countries: [],
+    }
+  })
+  genderRes.forEach(row => { if (result[row.platform]) result[row.platform].gender = { male: Number(row.male) || 0, female: Number(row.female) || 0 } })
+  agesRes.forEach(row => { if (result[row.platform]) result[row.platform].ages.push({ range: row.range, value: Number(row.value) || 0 }) })
+  countriesRes.forEach(row => { if (result[row.platform]) result[row.platform].countries.push({ name: row.name, value: Number(row.value) || 0 }) })
+  return result
+}
 // =====================
 // Default Config
 // =====================
@@ -210,7 +243,7 @@ const DEFAULT_CONFIG = {
         url: "https://www.youtube.com/watch?v=NpDXBwPkr2w",
         description: "Headlined Hong Kong's official NYE celebration, reaching an estimated 39M TV viewers.",
       },
-            { title: "NBC: America’s Got Talent", url: "https://www.youtube.com/watch?v=YcTLzmOCQnI", description: "" },
+      { title: "NBC: America’s Got Talent", url: "https://www.youtube.com/watch?v=YcTLzmOCQnI", description: "" },
 
       {
         title: "Dubai Tourism Music Videos",
@@ -267,7 +300,7 @@ const DEFAULT_CONFIG = {
         url: "https://www.youtube.com/watch?v=ku1zZfNbTNk",
         description: "Partnered with Dubai Tourism to create and film two music videos in Dubai.",
       },
-            {
+      {
         title: "New Years Eve 2024 @ Singapore",
         url: "https://www.youtube.com/watch?v=UstphUMqDoU",
         description: "Headlined Singapore's official NYE celebration, broadcast to an estimated 5M TV viewers.",
@@ -662,9 +695,9 @@ function VideoGallery({ links = [], colors, itemTitleBold = false, itemTitleColo
           className={`text-[16px] line-clamp-1 ${itemTitleBold ? "font-semibold" : ""}`}
           style={{ color: itemTitleColor ?? c.muted }}
         >
-        {item.title}     
-          
-          </div>
+          {item.title}
+
+        </div>
 
 
         <div
@@ -917,7 +950,7 @@ function PressSection({ cfg = DEFAULT_CONFIG.press, colors }) {
 // =====================
 // Main Component
 // =====================
-function EditableAnalyticsDashboard() {
+function EditableAnalyticsDashboard({ onLoadingChange }) {
   const [customColors, setCustomColors] = useState(DEFAULT_CONFIG.customColors)
   const [profile, setProfile] = useState(DEFAULT_CONFIG.profile)
   const [avatarSize] = useState(DEFAULT_CONFIG.avatarSize)
@@ -979,16 +1012,23 @@ function EditableAnalyticsDashboard() {
   const [view, setView] = useState("overview")
   const [imgOk, setImgOk] = useState(true)
 
+
   useEffect(() => {
-    if (typeof window === "undefined") return
-    try {
-      const saved = window.localStorage.getItem(STORAGE_KEY)
-      if (saved) {
-        const cfg = JSON.parse(saved)
-        setProfile((p) => ({ ...p, photo: cfg?.profile?.photo || p.photo }))
-        if (cfg?.tagVideos) setTagVideos((prev) => ({ ...prev, ...cfg.tagVideos }))
-      }
-    } catch { }
+   const loadData = async () => {
+  try {
+    onLoadingChange(true)
+    const sheetsData = await loadAllAnalytics()  // ← this  fetches ALL 4 sheets
+    if (sheetsData && Object.keys(sheetsData).length > 0) {
+      setPlatformData(ensurePlatformData(sheetsData))  // ← this sets ALL data including gender/ages/countries
+    }
+  } catch (err) {
+    console.error("SheetDB load failed, using defaults:", err)
+  } finally {
+    onLoadingChange(false)
+  }
+}
+
+    loadData()
   }, [])
 
   const palette = useMemo(() => ["#A78BFA", "#7C3AED", "#6D28D9", "#4C1D95", "#C4B5FD"], [])
@@ -1427,9 +1467,11 @@ function EditableAnalyticsDashboard() {
 }
 
 export default function App() {
+  const [loadingAnalytics, setLoadingAnalytics] = useState(true)
+
   return (
-    <DashboardShell>
-      <EditableAnalyticsDashboard />
+    <DashboardShell isLoading={loadingAnalytics}>
+      <EditableAnalyticsDashboard onLoadingChange={setLoadingAnalytics} />
     </DashboardShell>
   )
 }
