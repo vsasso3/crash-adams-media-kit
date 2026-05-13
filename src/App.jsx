@@ -329,24 +329,24 @@ const DEFAULT_CONFIG = {
       { name: "Google", img: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
       {
         name: "Old Spice",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/9/94/Current_Old_Spice_Logo_2016.svg/1200px-Current_Old_Spice_Logo_2016.svg.png",
+        img: "./Old_Spice_logo_OldSpice.png",
       },
       {
         name: "Qatar Airways",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Qatar_Airways_Logo.png/1200px-Qatar_Airways_Logo.png",
+        img: "./qatar-airways-logo.png",
       },
       {
         name: "Xbox",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Xbox_one_logo.svg/1200px-Xbox_one_logo.svg.png",
+        img: "./xbox-9-logo-png-transparent.png",
       },
       { name: "Snapchat", img: "https://upload.wikimedia.org/wikipedia/it/c/c4/Snapchat_logo.svg" },
       {
         name: "TikTok",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1200px-TikTok_logo.svg.png",
+        img: "./tiktok.png",
       },
       {
         name: "KFC",
-        img: "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/KFC_logo-image.svg/1200px-KFC_logo-image.svg.png",
+        img: "./KFC_logo.svg.png",
       },
       {
         name: "Dubai Travel Board",
@@ -358,21 +358,21 @@ const DEFAULT_CONFIG = {
       },
       {
         name: "HSBC",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/HSBC_logo_%282018%29.svg/1200px-HSBC_logo_%282018%29.svg.png",
+        img: "./HSBC_Logo_2018.png",
       },
       {
         name: "TD Bank",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/TD_Bank.svg/2560px-TD_Bank.svg.png",
+        img: "./td-canada.png",
       },
       { name: "Nissan", img: "https://upload.wikimedia.org/wikipedia/commons/2/23/Nissan_2020_logo.svg" },
       {
         name: "W Hotels",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/W_Hotels_Logo.svg/2426px-W_Hotels_Logo.svg.png",
+        img: "./W-hotels.png",
       },
       { name: "The Standard Hotels", img: "./The_Standard_logo.webp" },
       {
         name: "Doc Martens",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Dr._Martens_Logo.svg/2560px-Dr._Martens_Logo.svg.png",
+        img: "./Dr.-Martens-logo.png",
       },
       {
         name: "Miller Genuine Draft",
@@ -380,19 +380,19 @@ const DEFAULT_CONFIG = {
       },
       { name: "Harry Rosen", img: "./HareyRosen.png" },
       {
-        name: "RW & Co",
-        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMmAZKcAEEwYRSvDNHjFIjPHH_uUNmDhV54g&s",
+        name: "Fortnite",
+        img: "./Fortnite.webp",
       },
       { name: "San Jose Sharks", img: "https://upload.wikimedia.org/wikipedia/en/3/37/SanJoseSharksLogo.svg" },
       { name: "NHL", img: "https://upload.wikimedia.org/wikipedia/en/3/3a/05_NHL_Shield.svg" },
       {
         name: "Chicago Cubs",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Chicago_Cubs_logo.svg/1191px-Chicago_Cubs_logo.svg.png",
+        img: "./Chicago_Cubs_logo.svg.png",
       },
       { name: "Rixos Hotels", img: "https://upload.wikimedia.org/wikipedia/fr/c/c3/RIXOS-HOTELS-Logo.jpg" },
       {
         name: "Fender",
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Fender_guitars_logo.svg/1200px-Fender_guitars_logo.svg.png",
+        img: "./fender-red-large.jpg",
       },
     ],
   },
