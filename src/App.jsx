@@ -243,7 +243,7 @@ const DEFAULT_CONFIG = {
         url: "https://www.youtube.com/watch?v=NpDXBwPkr2w",
         description: "Headlined Hong Kong's official NYE celebration, reaching an estimated 39M TV viewers.",
       },
-      { title: "NBC: America’s Got Talent", url: "https://www.youtube.com/watch?v=YcTLzmOCQnI", description: "" },
+      { title: "NBC: America’s Got Talent", url: "https://www.youtube.com/watch?v=dngyZZkyOyU&t=5s", description: "" },
 
       {
         title: "Dubai Tourism Music Videos",
